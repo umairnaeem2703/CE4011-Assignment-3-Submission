@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Q3 (b) — TWO DISCONNECTED COLUMNS
+            Left:  fixed base, free top   (proper cantilever)
+            Right: free at BOTH ends      (completely unsupported, floating)
+  ════════════════════════════════════════════════════════════════════════
+  Structure:
+
+    N2            N4
+    │              │       h = 4 m
+    │              │
+    N1            N3
+   ▓▓▓           (no support)
+   fixed          free
+
+  Sub-structure analysis:
+    Left  (N1–N2): fixed at N1, free at N2.
+      → Valid fixed cantilever. Stable and solvable on its own.
+    Right (N3–N4): NO boundary conditions on either node.
+      → Floating rigid body. Can translate and rotate freely in all DOFs.
+      → Contributes 6 zero-eigenvalue modes (3 per node × 2 nodes,
+        none eliminated by supports) to the global stiffness matrix.
+
+  ── ERRORS ───────────────────────────────────────────────────────────
+  Two simultaneous problems:
+
+  ERROR 1 — Unsupported sub-structure:
+    "Member F2 (nodes 3–4) has no boundary conditions on any of its
+     nodes. This member is entirely unsupported and behaves as a
+     free-floating rigid body. The global stiffness matrix is singular."
+
+  ERROR 2 — Disconnected structure:
+    "The structural model is not fully connected. 2 isolated
+     sub-structures detected: {N1, N2} and {N3, N4}. Verify member
+     connectivity and boundary conditions."
+
+  Applied load: 5 kN lateral at N2 (left column only).
+  The right column has zero stiffness contribution and makes K singular
+  regardless of where the load is applied.
+-->
+<structural_model name="Q3b">
+
+  <metadata>
+    <title>Q3(b) — Left Column Fixed, Right Column Floating, Disconnected</title>
+    <description>
+      Two disconnected columns. Left: fixed base (N1), free top (N2).
+      Right: free at both ends — N3 and N4 have no supports whatsoever.
+      Expected: ERROR 1 — unsupported floating member (singular K).
+                ERROR 2 — disconnected structure (2 isolated sub-structures).
+    </description>
+  </metadata>
+
+  <units length="m" force="kN"/>
+
+  <materials>
+    <material id="steel_200" name="Steel 200 GPa" E="2.0e8"/>
+  </materials>
+
+  <sections>
+    <section id="sec1" name="Column Section" A="1.0e-2" I="1.0e-4"/>
+  </sections>
+
+  <nodes>
+    <node id="1"  x="0.0"  y="0.0"/>   <!-- Left  base — fixed            -->
+    <node id="2"  x="0.0"  y="4.0"/>   <!-- Left  top  — free             -->
+    <node id="3"  x="4.0"  y="0.0"/>   <!-- Right base — NO SUPPORT       -->
+    <node id="4"  x="4.0"  y="4.0"/>   <!-- Right top  — NO SUPPORT       -->
+  </nodes>
+
+  <elements>
+    <frame id="F1" node_i="1" node_j="2" material="steel_200" section="sec1"/>  <!-- Left  column — supported -->
+    <frame id="F2" node_i="3" node_j="4" material="steel_200" section="sec1"/>  <!-- Right column — floating  -->
+  </elements>
+
+  <boundary_conditions>
+    <!-- Only the left column base is restrained. Right column is entirely unsupported. -->
+    <support node="1" type="fixed"/>
+  </boundary_conditions>
+
+  <load_cases>
+    <load_case id="LC1" name="Lateral load on left column">
+      <point_load node="2" fx="5.0" fy="-2.0"/>
+    </load_case>
+  </load_cases>
+
+</structural_model>

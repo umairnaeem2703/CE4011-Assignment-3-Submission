@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║         STRUCTURAL ANALYSIS XML INPUT — SCHEMA REFERENCE  v2        ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+
+  SCOPE
+  ─────
+  2D structural analysis problems using the Direct Stiffness Method (DSM).
+  Supports truss elements, frame elements (with optional moment releases),
+  nodal point loads, and distributed/concentrated loads applied directly
+  along frame members (member loads). Member loads generate fixed-end
+  forces (FEFs) that are assembled into the global load vector.
+
+  COORDINATE SYSTEM
+  ─────────────────
+    x  — horizontal, positive right
+    y  — vertical,   positive up
+    rz — rotation about z-axis, positive counter-clockwise (CCW)
+
+  UNIT SYSTEM (declared once in <units>)
+    length → m       force → kN
+    Derived : E in kN/m²   (1 GPa = 1×10⁶ kN/m²)
+              A in m²      I in m⁴
+              load in kN   UDL in kN/m    moment in kN·m
+
+  ════════════════════════════════════════════════════════════════════════
+  FIXED-END FORCE (FEF) REFERENCE
+  ════════════════════════════════════════════════════════════════════════
+  Member loads are converted to equivalent nodal loads via FEF formulas.
+  The correct formula set depends on the end condition of the element,
+  set via the fef_condition attribute on each member load tag.
+
+  sign convention for FEF outputs:
+    Fy_i, Fy_j  — transverse reactions (positive = upward = +y)
+    Mz_i, Mz_j  — end moments       (positive = CCW)
+  Loads w and P are given as MAGNITUDES (positive values); direction is
+  specified by the sign of wy / fy on the load tag.
+
+  ┌──────────────┬────────────────────────────────────────────────────┐
+  │ fef_condition│ Description                                        │
+  ├──────────────┼────────────────────────────────────────────────────┤
+  │ fixed-fixed  │ Both ends have full moment continuity (standard).  │
+  │              │ Default for interior spans of continuous beams/     │
+  │              │ frames where no end-release is present.            │
+  ├──────────────┼────────────────────────────────────────────────────┤
+  │ pin-fixed    │ node_i end is moment-released (pinned); node_j end │
+  │              │ is continuous. Use when a <release end="i"/> is    │
+  │              │ declared on this element, or when node_i is a pin  │
+  │              │ support with no adjacent element providing moment  │
+  │              │ stiffness.                                         │
+  ├──────────────┼────────────────────────────────────────────────────┤
+  │ fixed-pin    │ node_j end is moment-released; node_i is           │
+  │              │ continuous. Mirror image of pin-fixed.             │
+  ├──────────────┼────────────────────────────────────────────────────┤
+  │ pin-pin      │ Both ends are moment-released. Element carries     │
+  │              │ transverse load as a simply-supported beam; no     │
+  │              │ end moments.                                       │
+  └──────────────┴────────────────────────────────────────────────────┘
+
+  ── UDL  (intensity w [kN/m], span L [m]) ────────────────────────────
+
+    FIXED-FIXED
+      Fy_i =  wL/2           Fy_j =  wL/2
+      Mz_i = -wL²/12         Mz_j = +wL²/12
+
+    PIN-FIXED  (i pinned, j fixed)
+      Fy_i =  3wL/8          Fy_j =  5wL/8
+      Mz_i =  0              Mz_j = +wL²/8
+
+    FIXED-PIN  (i fixed, j pinned)
+      Fy_i =  5wL/8          Fy_j =  3wL/8
+      Mz_i = -wL²/8          Mz_j =  0
+
+    PIN-PIN
+      Fy_i =  wL/2           Fy_j =  wL/2
+      Mz_i =  0              Mz_j =  0
+
+  ── POINT LOAD  (magnitude P [kN], a = distance from node_i, b = L−a) ─
+
+    FIXED-FIXED
+      Fy_i =  Pb²(3a+b)/L³   Fy_j =  Pa²(3b+a)/L³
+      Mz_i = -Pab²/L²         Mz_j = +Pa²b/L²
+
+    PIN-FIXED  (i pinned, j fixed)
+      Fy_i =  Pb²(L+a)/(2L³)  ... wait — simplified closed form:
+      Fy_i =  Pb(3L²−b²)/(2L³)·... see structural analysis textbook.
+      Use modified stiffness method: reduce element stiffness, then
+      back-calculate FEF. For reference only; solver handles internally.
+
+    FIXED-PIN  (i fixed, j pinned) — mirror of pin-fixed with a ↔ b.
+
+    PIN-PIN
+      Fy_i =  Pb/L            Fy_j =  Pa/L
+      Mz_i =  0               Mz_j =  0
+-->
+
+<structural_model name="SCHEMA_REFERENCE_v2">
+
+  <!-- ── METADATA (optional, informational) ──────────────────────────── -->
+  <metadata>
+    <title>Schema Reference v2</title>
+    <description>Full annotation of every valid tag and attribute.</description>
+  </metadata>
+
+  <!-- ── UNITS (required) ─────────────────────────────────────────────
+       Declares the unit system. All numeric values must be consistent.
+       Attributes:
+         length — base length unit  (use "m")
+         force  — base force unit   (use "kN")
+  -->
+  <units length="m" force="kN"/>
+
+  <!-- ── MATERIALS (required) ─────────────────────────────────────────
+       Attributes:
+         id   — unique string referenced by elements
+         name — descriptive label
+         E    — Young's modulus [force/length²]
+  -->
+  <materials>
+    <material id="steel_200" name="Steel 200 GPa" E="2.0e8"/>
+  </materials>
+
+  <!-- ── SECTIONS (required) ──────────────────────────────────────────
+       Attributes:
+         id   — unique string referenced by elements
+         name — descriptive label
+         A    — cross-sectional area [length²]
+         I    — second moment of area [length⁴]  (frame elements only)
+                Omit I for truss sections (not used).
+  -->
+  <sections>
+    <section id="truss_sec"  name="Truss cross-section"  A="1.0e-4"/>
+    <section id="frame_sec"  name="Frame cross-section"  A="2.0e-2"  I="8.0e-2"/>
+  </sections>
+
+  <!-- ── NODES (required) ─────────────────────────────────────────────
+       Attributes:
+         id — unique integer (1-based)
+         x  — x-coordinate [length]
+         y  — y-coordinate [length]
+  -->
+  <nodes>
+    <node id="1"  x="0.0"   y="0.0"/>
+    <node id="2"  x="10.0"  y="0.0"/>
+    <node id="3"  x="10.0"  y="4.0"/>
+  </nodes>
+
+  <!-- ── ELEMENTS (required) ──────────────────────────────────────────
+
+       <truss> — axial force only; 2 DOFs per node (ux, uy).
+       <frame> — full beam-column; 3 DOFs per node (ux, uy, rz).
+
+       Common attributes (both types):
+         id       — unique string
+         node_i   — start node id
+         node_j   — end node id
+         material — references a <material id>
+         section  — references a <section id>
+
+       <frame> optional child element — <releases>:
+         Declares moment releases (internal hinges) at element ends.
+         <release end="i" dof="Mz"/>   — hinge at node_i end
+         <release end="j" dof="Mz"/>   — hinge at node_j end
+         "Mz" is the only valid dof value in 2D.
+
+       Effect on FEF selection:
+         A release at end "i" → use fef_condition="pin-fixed" on member loads.
+         A release at end "j" → use fef_condition="fixed-pin" on member loads.
+         Releases at both ends → use fef_condition="pin-pin".
+         No releases         → use fef_condition="fixed-fixed"  (default).
+  -->
+  <elements>
+    <truss id="T1" node_i="1" node_j="2" material="steel_200" section="truss_sec"/>
+    <frame id="F1" node_i="1" node_j="3" material="steel_200" section="frame_sec"/>
+    <frame id="F2" node_i="2" node_j="3" material="steel_200" section="frame_sec">
+      <releases>
+        <release end="i" dof="Mz"/>
+      </releases>
+    </frame>
+  </elements>
+
+  <!-- ── BOUNDARY CONDITIONS (required) ───────────────────────────────
+       One <support> per restrained node.
+       Attributes:
+         node — references a <node id>
+         type — shorthand restraint type:
+                  "fixed"    → ux=1  uy=1  rz=1
+                  "pin"      → ux=1  uy=1  rz=0
+                  "roller_x" → ux=0  uy=1  rz=0  (free to slide in x)
+                  "roller_y" → ux=1  uy=0  rz=0  (free to slide in y)
+               OR specify DOFs individually (1=restrained, 0=free):
+                  ux="1" uy="1" rz="0"
+       Note: truss nodes have no rz DOF; rz is ignored for truss-only nodes.
+  -->
+  <boundary_conditions>
+    <support node="1" type="fixed"/>
+    <support node="2" type="pin"/>
+    <support node="3" type="roller_x"/>
+  </boundary_conditions>
+
+  <!-- ── LOAD CASES (optional) ─────────────────────────────────────────
+       Multiple <load_case> blocks allowed; each is solved independently.
+       Attributes on <load_case>:
+         id   — unique string
+         name — descriptive label (optional)
+
+       ── Nodal loads ──────────────────────────────────────────────────
+       <point_load> — concentrated load applied directly at a node.
+         node — references a <node id>
+         fx   — global x-force  [force]        (positive = rightward)
+         fy   — global y-force  [force]        (positive = upward)
+         mz   — applied moment  [force·length] (positive = CCW)
+         Omitted attributes default to zero.
+
+       ── Member loads ─────────────────────────────────────────────────
+       Applied along the length of a <frame> element.
+       The solver converts them to equivalent nodal loads using the FEF
+       formulas shown in the header comment, selected by fef_condition.
+
+       <member_udl> — uniformly distributed load over the full element span.
+         element       — references a <frame id>
+         wy            — load intensity in global y [force/length]
+                         (negative = downward, positive = upward)
+         wx            — load intensity in global x [force/length] (optional)
+         fef_condition — "fixed-fixed" | "pin-fixed" | "fixed-pin" | "pin-pin"
+                         Determines which FEF formula set is applied.
+                         Default: "fixed-fixed".
+
+       <member_point_load> — concentrated load at an interior point of an element.
+         element       — references a <frame id>
+         position      — distance from node_i along element axis [length]
+                         Must satisfy: 0 < position < element length.
+         fy            — transverse load in global y [force]
+                         (negative = downward, positive = upward)
+         fx            — axial load in global x [force] (optional)
+         fef_condition — same as for <member_udl>. Default: "fixed-fixed".
+  -->
+  <load_cases>
+    <load_case id="LC1" name="Service loads">
+
+      <!-- Nodal load at node 3 -->
+      <point_load node="3" fx="5.0" fy="-10.0" mz="0.0"/>
+
+      <!-- UDL on frame element F1, full span, downward 2 kN/m -->
+      <member_udl
+        element="F1"
+        wy="-2.0"
+        fef_condition="fixed-fixed"/>
+
+      <!-- Concentrated load on frame element F2, 3 m from node_i -->
+      <member_point_load
+        element="F2"
+        position="3.0"
+        fy="-20.0"
+        fef_condition="pin-fixed"/>
+
+    </load_case>
+  </load_cases>
+
+</structural_model>

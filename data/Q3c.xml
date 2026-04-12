@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<structural_model name="Q3c_L_Frame_Cantilever">
+  <metadata>
+    <title>Q3(c) L-Frame and Fixed Cantilever Column</title>
+  </metadata>
+  <units length="m" force="kN"/>
+  <materials>
+    <material id="steel_200" name="Steel 200 GPa" E="2.0e8"/>
+  </materials>
+  <sections>
+    <section id="sec1" name="Frame Section" A="1.0e-2" I="1.0e-4"/>
+  </sections>
+  <nodes>
+    <node id="1" x="0.0" y="0.0"/>
+    <node id="2" x="0.0" y="4.0"/>
+    <node id="3" x="4.0" y="4.0"/>
+    <node id="4" x="6.0" y="0.0"/>
+    <node id="5" x="6.0" y="4.0"/>
+  </nodes>
+  <elements>
+    <frame id="F1" node_i="1" node_j="2" material="steel_200" section="sec1"/>
+    <frame id="F2" node_i="2" node_j="3" material="steel_200" section="sec1"/>
+    <frame id="F3" node_i="4" node_j="5" material="steel_200" section="sec1"/>
+  </elements>
+  <boundary_conditions>
+    <support node="1" type="fixed"/>
+    <support node="3" type="roller_x"/>
+    <support node="4" type="fixed"/>
+  </boundary_conditions>
+  <load_cases>
+    <load_case id="LC1">
+      <point_load node="3" fx="0.0" fy="-10.0"/>
+      <point_load node="5" fx="10.0" fy="0.0"/>
+    </load_case>
+  </load_cases>
+</structural_model>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Q3 (d) — A-FRAME TRUSS  (members connected at apex by hinge — NO SUPPORTS)
+  ════════════════════════════════════════════════════════════════════════
+  Structure:
+
+             N3
+            / \         h = 3 m
+           /   \        base = 4 m
+          N1   N2
+         (free) (free)   ← NO supports anywhere
+
+  The open circle at the apex is an INTERNAL PIN JOINT (hinge)
+  connecting the two truss members — NOT a ground support.
+  No node in the model has any boundary condition applied.
+
+  DOF analysis:
+    Total DOFs     : 3 nodes × 2 (truss) = 6
+    Restrained     : 0   ← no <support> tags defined
+    Free DOFs      : 6
+    Rigid body modes: 3  (2 translations + 1 rotation in 2D)
+
+  The assembled stiffness matrix K (6×6) has rank ≤ 3 (at most 3
+  independent axial member equations). The 3 rigid body modes make K
+  singular — the structure floats freely in space.
+
+  ── ERROR ────────────────────────────────────────────────────────────
+  ERROR — No boundary conditions defined:
+    "The model has no support conditions. The structure is entirely
+     unsupported and can undergo unrestricted rigid body motion (2
+     translations + 1 rotation in 2D). The global stiffness matrix is
+     singular. Define a minimum of 3 non-collinear restraints to
+     eliminate all rigid body modes."
+
+  Applied load: 10 kN downward at N3 (apex) — with no supports, this
+  load has no equilibrium path and immediately confirms singularity.
+-->
+
+<structural_model name="Q3d_A_Frame_Pinned">
+  <metadata>
+    <title>Q3(d) A-Frame Truss with Pin Supports</title>
+  </metadata>
+  <units length="m" force="kN"/>
+  <materials>
+    <material id="steel_200" name="Steel 200 GPa" E="2.0e8"/>
+  </materials>
+  <sections>
+    <section id="truss_sec" name="Truss Section" A="1.0e-4"/>
+  </sections>
+  <nodes>
+    <node id="1" x="0.0" y="0.0"/>
+    <node id="2" x="4.0" y="0.0"/>
+    <node id="3" x="2.0" y="3.0"/>
+  </nodes>
+  <elements>
+    <truss id="T1" node_i="1" node_j="3" material="steel_200" section="truss_sec"/>
+    <truss id="T2" node_i="2" node_j="3" material="steel_200" section="truss_sec"/>
+  </elements>
+  <boundary_conditions>
+    <support node="1" type="pin"/>
+    <support node="2" type="pin"/>
+  </boundary_conditions>
+  <load_cases>
+    <load_case id="LC1">
+      <point_load node="3" fx="0.0" fy="-10.0"/>
+    </load_case>
+  </load_cases>
+</structural_model>

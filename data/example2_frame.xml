@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<structural_model name="Example2_Sample_Frame">
+  <metadata>
+    <title>Sample Frame Structure — Portal with Diagonal</title>
+    <description>Four-member 2D frame. Simply supported with a pin at N1 and a roller at N4. Diagonal brace included.</description>
+  </metadata>
+  <units length="m" force="kN"/>
+  <materials>
+    <material id="steel_200" name="Steel 200 GPa" E="2.0e5"/>
+  </materials>
+  <sections>
+    <section id="frame_main_sec" name="Main Frame Section" A="2.0e-2" I="8.0e-2"/>
+    <section id="frame_diag_sec" name="Diagonal Section" A="1.0e-2" I="1.0e-2"/>
+  </sections>
+  <nodes>
+    <node id="1" x="0.0" y="0.0"/>
+    <node id="2" x="0.0" y="3.0"/>
+    <node id="3" x="4.0" y="3.0"/>
+    <node id="4" x="4.0" y="0.0"/>
+  </nodes>
+  <elements>
+    <frame id="F1" node_i="1" node_j="2" material="steel_200" section="frame_main_sec"/>
+    <frame id="F2" node_i="2" node_j="3" material="steel_200" section="frame_main_sec"/>
+    <frame id="F3" node_i="3" node_j="4" material="steel_200" section="frame_main_sec"/>
+    <frame id="F4" node_i="1" node_j="3" material="steel_200" section="frame_diag_sec"/>
+  </elements>
+  <boundary_conditions>
+    <support node="1" type="pin"/>
+    <support node="4" type="roller_x"/>
+  </boundary_conditions>
+  <load_cases>
+    <load_case id="LC1" name="Service Loads">
+      <point_load node="2" fx="10.0" fy="-10.0"/>
+      <point_load node="3" fx="10.0" fy="-10.0"/>
+    </load_case>
+  </load_cases>
+</structural_model>

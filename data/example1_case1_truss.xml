@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<structural_model name="Example1_Case1_Truss">
+  <metadata>
+    <title>Simply-Supported Truss Beam — 5 Panels (Case 1)</title>
+    <description>5-panel X-braced Pratt-type truss. Span = 20 m, Height = 4 m. Simply supported: pin at N1, roller at N6.</description>
+  </metadata>
+  <units length="m" force="kN"/>
+  <materials>
+    <material id="steel_200" name="Steel 200 GPa" E="2.0e8"/>
+  </materials>
+  <sections>
+    <section id="truss_sec" name="Standard Truss Section" A="1.0e-4"/>
+  </sections>
+  <nodes>
+    <node id="1" x="0.0" y="0.0"/>
+    <node id="2" x="4.0" y="0.0"/>
+    <node id="3" x="8.0" y="0.0"/>
+    <node id="4" x="12.0" y="0.0"/>
+    <node id="5" x="16.0" y="0.0"/>
+    <node id="6" x="20.0" y="0.0"/>
+    <node id="7" x="0.0" y="4.0"/>
+    <node id="8" x="4.0" y="4.0"/>
+    <node id="9" x="8.0" y="4.0"/>
+    <node id="10" x="12.0" y="4.0"/>
+    <node id="11" x="16.0" y="4.0"/>
+    <node id="12" x="20.0" y="4.0"/>
+  </nodes>
+  <elements>
+    <!-- Bottom chord -->
+    <truss id="T1" node_i="1" node_j="2" material="steel_200" section="truss_sec"/>
+    <truss id="T2" node_i="2" node_j="3" material="steel_200" section="truss_sec"/>
+    <truss id="T3" node_i="3" node_j="4" material="steel_200" section="truss_sec"/>
+    <truss id="T4" node_i="4" node_j="5" material="steel_200" section="truss_sec"/>
+    <truss id="T5" node_i="5" node_j="6" material="steel_200" section="truss_sec"/>
+    <!-- Top chord -->
+    <truss id="T6" node_i="7" node_j="8" material="steel_200" section="truss_sec"/>
+    <truss id="T7" node_i="8" node_j="9" material="steel_200" section="truss_sec"/>
+    <truss id="T8" node_i="9" node_j="10" material="steel_200" section="truss_sec"/>
+    <truss id="T9" node_i="10" node_j="11" material="steel_200" section="truss_sec"/>
+    <truss id="T10" node_i="11" node_j="12" material="steel_200" section="truss_sec"/>
+    <!-- Verticals -->
+    <truss id="T11" node_i="1" node_j="7" material="steel_200" section="truss_sec"/>
+    <truss id="T12" node_i="2" node_j="8" material="steel_200" section="truss_sec"/>
+    <truss id="T13" node_i="3" node_j="9" material="steel_200" section="truss_sec"/>
+    <truss id="T14" node_i="4" node_j="10" material="steel_200" section="truss_sec"/>
+    <truss id="T15" node_i="5" node_j="11" material="steel_200" section="truss_sec"/>
+    <truss id="T16" node_i="6" node_j="12" material="steel_200" section="truss_sec"/>
+    <!-- Diagonals -->
+    <truss id="T17" node_i="1" node_j="8" material="steel_200" section="truss_sec"/>
+    <truss id="T18" node_i="2" node_j="7" material="steel_200" section="truss_sec"/>
+    <truss id="T19" node_i="2" node_j="9" material="steel_200" section="truss_sec"/>
+    <truss id="T20" node_i="3" node_j="8" material="steel_200" section="truss_sec"/>
+    <truss id="T21" node_i="3" node_j="10" material="steel_200" section="truss_sec"/>
+    <truss id="T22" node_i="4" node_j="9" material="steel_200" section="truss_sec"/>
+    <truss id="T23" node_i="4" node_j="11" material="steel_200" section="truss_sec"/>
+    <truss id="T24" node_i="5" node_j="10" material="steel_200" section="truss_sec"/>
+    <truss id="T25" node_i="5" node_j="12" material="steel_200" section="truss_sec"/>
+    <truss id="T26" node_i="6" node_j="11" material="steel_200" section="truss_sec"/>
+  </elements>
+  <boundary_conditions>
+    <support node="1" type="pin"/>
+    <support node="6" type="roller_x"/>
+  </boundary_conditions>
+  <load_cases>
+    <load_case id="LC1">
+      <point_load node="9" fx="0.0" fy="-5.0" mz="0.0"/>
+      <point_load node="10" fx="0.0" fy="-5.0" mz="0.0"/>
+    </load_case>
+  </load_cases>
+</structural_model>

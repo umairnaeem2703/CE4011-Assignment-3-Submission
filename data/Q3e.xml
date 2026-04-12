@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<structural_model name="Q3e_Beam_All_Pins">
+  <metadata>
+    <title>Q3(e) 3-Span Beam with Internal Hinge and Pin Supports</title>
+  </metadata>
+  <units length="m" force="kN"/>
+  <materials>
+    <material id="mat_EI" name="Constant EI" E="1.0"/>
+  </materials>
+  <sections>
+    <section id="beam_sec" name="Constant EI Beam" A="1.0e6" I="1.0"/>
+  </sections>
+  <nodes>
+    <node id="1" x="0.0" y="0.0"/>
+    <node id="2" x="4.0" y="0.0"/>
+    <node id="3" x="8.0" y="0.0"/>
+    <node id="4" x="12.0" y="0.0"/>
+  </nodes>
+  <elements>
+    <frame id="E1" node_i="1" node_j="2" material="mat_EI" section="beam_sec"/>
+    
+    <!-- Using a single release optimally models the hinge without causing a redundant cut -->
+    <frame id="E2" node_i="2" node_j="3" material="mat_EI" section="beam_sec">
+      <releases>
+        <release end="j" dof="Mz"/>
+      </releases>
+    </frame>
+    
+    <!-- E3 has no release, so Node 3 Rz binds to E3, keeping the matrix stable -->
+    <frame id="E3" node_i="3" node_j="4" material="mat_EI" section="beam_sec"/>
+  </elements>
+  
+  <boundary_conditions>
+    <support node="1" type="pin"/>
+    <support node="2" type="pin"/>
+    <support node="4" type="pin"/>
+  </boundary_conditions>
+  
+  <load_cases>
+    <load_case id="LC1">
+      <member_udl element="E2" wy="-8.0" fef_condition="fixed-pin"/>
+      <point_load node="4" fx="0.0" fy="-5.0"/>
+    </load_case>
+  </load_cases>
+</structural_model>
