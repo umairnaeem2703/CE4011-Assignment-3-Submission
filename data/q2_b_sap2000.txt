@@ -1,0 +1,40 @@
+SAP2000 v16.1.1    5/1/14 4:31:31
+
+Table:  Element Joint Forces - Frames
+
+       Frame       Joint  OutputCase    CaseType          F1          F2          F3          M1          M2          M3   FrameElem
+                                                          KN          KN          KN        KN-m        KN-m        KN-m            
+
+          F1           1        TEMP   LinStatic    1920.905       0.000     -11.846      0.0000     48.2164      0.0000        F1-1
+          F1           2        TEMP   LinStatic   -1920.905       0.000      11.846      0.0000     34.7064      0.0000        F1-1
+          F2           2        TEMP   LinStatic    1919.296       0.000       3.856      0.0000    -34.7064      0.0000        F2-1
+          F2           3        TEMP   LinStatic   -1919.296       0.000      -3.856      0.0000  -7.105E-15      0.0000        F2-1
+          T1           2        TEMP   LinStatic      -4.067       0.000      -8.134      0.0000      0.0000      0.0000        T1-1
+          T1           4        TEMP   LinStatic       4.067       0.000       8.134      0.0000      0.0000      0.0000        T1-1
+          T2           2        TEMP   LinStatic       5.676       0.000      -7.568      0.0000      0.0000      0.0000        T2-1
+          T2           5        TEMP   LinStatic      -5.676       0.000       7.568      0.0000      0.0000      0.0000        T2-1
+
+
+Table:  Joint Displacements
+
+       Joint  OutputCase    CaseType          U1          U2          U3          R1          R2          R3
+                                               m           m           m     Radians     Radians     Radians
+
+           1        TEMP   LinStatic    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+           2        TEMP   LinStatic  -6.601E-07    0.000000    0.001009    0.000000   -0.000092    0.000000
+           3        TEMP   LinStatic    0.000000    0.000000    0.000000    0.000000    0.000213    0.000000
+           4        TEMP   LinStatic    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+           5        TEMP   LinStatic    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+
+
+Table:  Joint Reactions
+
+       Joint  OutputCase    CaseType          F1          F2          F3          M1          M2          M3
+                                              KN          KN          KN        KN-m        KN-m        KN-m
+
+           1        TEMP   LinStatic    1920.905       0.000     -11.846      0.0000     48.2164      0.0000
+           3        TEMP   LinStatic   -1919.296       0.000      -3.856      0.0000      0.0000      0.0000
+           4        TEMP   LinStatic       4.067       0.000       8.134      0.0000      0.0000      0.0000
+           5        TEMP   LinStatic      -5.676       0.000       7.568      0.0000      0.0000      0.0000
+
+

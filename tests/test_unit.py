@@ -41,7 +41,7 @@ class TestElementPhysics(unittest.TestCase):
         udl = UniformlyDL(element=frame, wy=-10.0) 
         fef_local = udl.FEF("fixed-fixed", 5.0)
 
-        w = -10.0
+        w = 10.0  # Use magnitude (abs of -10.0)
         L = 5.0
         
         expected_vy = (w * L) / 2.0
@@ -76,12 +76,13 @@ class TestElementPhysics(unittest.TestCase):
         frame = Element(id="F1", type="frame", node_i=self.node_i, node_j=self.node_j, 
                         material=self.mat, section=self.sec)
         
-        P = -20.0
+        P_signed = -20.0
+        P = 20.0  # Use magnitude (abs of -20.0)
         a = 2.0
         L = 5.0
         b = L - a
         
-        pt_load = PointLoad(element=frame, position=a, fy=P)
+        pt_load = PointLoad(element=frame, position=a, fy=P_signed)
         fef_local = pt_load.FEF("fixed-fixed", L)
         
         expected_vy_i = (P * b**2 * (3*a + b)) / (L**3)

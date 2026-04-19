@@ -91,7 +91,7 @@ class PointLoad(MemberLoad):
         b = L - a
         # CRITICAL FIX: Use magnitude of load in FEF formulas (textbook convention)
         # The sign indicates load direction; formulas compute reaction magnitudes
-        P = abs(self.fy)  
+        P = abs(self.fy)
         fx_load = self.fx
 
         # Axial FEF: preserve sign for compression/tension
@@ -209,9 +209,8 @@ class TemperatureL(MemberLoad):
             return fef
         
         # STEP 3: Compute moment magnitude using professor's exact formula
-        # Note: We negate the formula so that positive delta_T gradient (top hotter than bottom) 
-        # produces positive bending moment (upward curvature)
-        M_T = -(alpha * delta_T / d) * E * I if d != 0 else 0.0
+        # M_T = (alpha * delta_T / d) * E * I (sign inherits from delta_T)
+        M_T = (alpha * delta_T / d) * E * I if d != 0 else 0.0
         
         # STEP 4: Adjust FEF based on end releases
         if fef_condition == "fixed-fixed":
@@ -412,6 +411,7 @@ class XMLParser:
                 load_type = tload.attrib.get('type', 'uniform')
                 
                 if load_type == 'uniform':
+                    # Uniform thermal load: delta_T represents uniform temperature increase
                     dT = float(tload.attrib.get('delta_T', 0.0))
                     lc.loads.append(TemperatureL(element, Tu=dT, Tb=dT))
                 elif load_type == 'gradient':
@@ -419,6 +419,8 @@ class XMLParser:
                         raise ValueError(f"Truss element {element.id} cannot accept gradient temperature loads. "
                                        "Only uniform thermal loads are valid for truss elements.")
                     dT = float(tload.attrib.get('delta_T', 0.0))
+                    # Gradient: delta_T is the top-to-bottom difference
+                    # Set Tu=dT/2, Tb=-dT/2 to create symmetric gradient around 0
                     lc.loads.append(TemperatureL(element, Tu=dT/2.0, Tb=-dT/2.0))
                 elif load_type == 'combined':
                     if element.type == 'truss':

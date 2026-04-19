@@ -55,7 +55,13 @@ class PostProcessor:
             self.displacements[n_id] = disp
 
     def _compute_forces_and_reactions(self):
-        """Calculates local member forces and global support reactions."""
+        """
+        Calculates local member forces and global support reactions using the correct pipeline:
+        1. Extract global displacements u_global (4x1 for truss, 6x1 for frame)
+        2. Transform to local: u_local = T @ u_global
+        3. Compute member forces: f_local = (k_local @ u_local) + fef_local
+        4. Extract axial/shear/moment from the full local force vector
+        """
         # Initialize reaction sums at supports
         for n_id in self.model.supports.keys():
             self.reactions[n_id] = [0.0, 0.0, 0.0]
@@ -63,10 +69,9 @@ class PostProcessor:
         for el_id, el in self.model.elements.items():
             phys = ElementPhysics(el)
             
-            # 1. Retrieve condensed matrices (pass model for auto FEF detection)
+            # 1. Get full local stiffness and FEF (not condensed)
             k_local = phys.get_local_k()
             fef_local = phys.get_local_fef(self.load_case, self.model)
-            k_cond, fef_cond = phys.condense(k_local, fef_local)
             
             # 2. Build rotation matrix [T] and extract global displacements
             c, s = phys.cos_x, phys.sin_x
@@ -90,13 +95,15 @@ class PostProcessor:
                     [self.displacements[el.node_i.id][0]], [self.displacements[el.node_i.id][1]], [self.displacements[el.node_i.id][2]],
                     [self.displacements[el.node_j.id][0]], [self.displacements[el.node_j.id][1]], [self.displacements[el.node_j.id][2]]
                 ]
-                
-            # 3. Calculate Local Forces: {f'} = [k_cond]{d'} + {FEF_cond}
-            d_local = math_utils.matmul(T, d_global)
-            f_local = math_utils.add(math_utils.matmul(k_cond, d_local), fef_cond)
+            
+            # 3. Transform displacements to local coordinates: u_local = T @ u_global
+            u_local = math_utils.matmul(T, d_global)
+            
+            # 4. Compute local member forces: f_local = (k_local @ u_local) + fef_local
+            f_local = math_utils.add(math_utils.matmul(k_local, u_local), fef_local)
             self.member_forces[el_id] = f_local
             
-            # 4. Transform to global forces and sum at supports for reactions
+            # 5. Transform local forces back to global for reaction calculation
             f_global = math_utils.matmul(math_utils.transpose(T), f_local)
             
             if el.node_i.id in self.reactions:
@@ -110,7 +117,7 @@ class PostProcessor:
                 self.reactions[el.node_j.id][1] += f_global[offset + 1][0]
                 if el.type == 'frame': self.reactions[el.node_j.id][2] += f_global[offset + 2][0]
                     
-        # 5. Subtract applied nodal point loads from the calculated reactions
+        # 6. Subtract applied nodal point loads from the calculated reactions
         for load in self.load_case.loads:
             if isinstance(load, NodalLoad):
                 n_id = load.node.id
@@ -148,11 +155,25 @@ class PostProcessor:
                 el = self.model.elements[el_id]
                 forces = self.member_forces[el_id]
                 
-                f_i = [forces[0][0], 0.0, 0.0] if el.type == 'truss' else [forces[0][0], forces[1][0], forces[2][0]]
-                f_j = [forces[2][0], 0.0, 0.0] if el.type == 'truss' else [forces[3][0], forces[4][0], forces[5][0]]
+                if el.type == 'truss':
+                    # Truss forces: [Fx_i, Fy_i, Fx_j, Fy_j]
+                    f_i_axial = forces[0][0]
+                    f_i_shear = 0.0
+                    f_i_moment = 0.0
+                    f_j_axial = forces[2][0]  # Fx at node J
+                    f_j_shear = 0.0
+                    f_j_moment = 0.0
+                else:
+                    # Frame forces: [Fx_i, Fy_i, Mz_i, Fx_j, Fy_j, Mz_j]
+                    f_i_axial = forces[0][0]
+                    f_i_shear = forces[1][0]
+                    f_i_moment = forces[2][0]
+                    f_j_axial = forces[3][0]  # Fx at node J (tension is positive)
+                    f_j_shear = forces[4][0]
+                    f_j_moment = forces[5][0]
                 
-                f.write(f"{el_id:<8} {el.node_i.id:<4} {f_i[0]:<16.4f} {f_i[1]:<16.4f} {f_i[2]:<16.4f}\n")
-                f.write(f"{'':<8} {el.node_j.id:<4} {f_j[0]:<16.4f} {f_j[1]:<16.4f} {f_j[2]:<16.4f}\n")
+                f.write(f"{el_id:<8} {el.node_i.id:<4} {f_i_axial:<16.4f} {f_i_shear:<16.4f} {f_i_moment:<16.4f}\n")
+                f.write(f"{'':<8} {el.node_j.id:<4} {f_j_axial:<16.4f} {f_j_shear:<16.4f} {f_j_moment:<16.4f}\n")
                 f.write("-" * 80 + "\n")
             f.write("\n")
             
