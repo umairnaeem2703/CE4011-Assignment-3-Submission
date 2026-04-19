@@ -84,15 +84,25 @@ class ElementPhysics:
     def get_local_fef(self, load_case: LoadCase, model: StructuralModel = None) -> list:
         """Calculates combined Fixed End Forces (FEF) delegated to the load subclasses."""
         if self.element.type == 'truss':
-            return math_utils.zeros(4, 1)
-
-        fef_total = math_utils.zeros(6, 1)
-        fef_cond = self._determine_fef_condition(model)
+            fef_total = math_utils.zeros(4, 1)
+            fef_cond = "pin-pin"  # Trusses always use pin-pin for FEF
+        else:
+            fef_total = math_utils.zeros(6, 1)
+            fef_cond = self._determine_fef_condition(model)
 
         for load in load_case.loads:
             if isinstance(load, MemberLoad) and load.element.id == self.element.id:
-                # Load instances calculate their own FEF based on the automatically determined condition
-                fef_member = load.FEF(fef_cond, self.L)
+                # For temperature loads, always use "fixed-fixed" since thermal stresses are built-in
+                # regardless of boundary conditions
+                load_fef_cond = "fixed-fixed" if hasattr(load, 'Tu') else fef_cond
+                
+                # Load instances calculate their own FEF based on the appropriate condition
+                fef_member = load.FEF(load_fef_cond, self.L)
+                
+                # For trusses, extract only the first 4 components (axial only)
+                if self.element.type == 'truss':
+                    fef_member = [[fef_member[i][0]] for i in range(4)]
+                
                 fef_total = math_utils.add(fef_total, fef_member)
 
         return fef_total

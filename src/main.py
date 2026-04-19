@@ -59,7 +59,7 @@ def run_analysis(xml_filepath: str, output_dir: str = "./results"):
 
 if __name__ == "__main__":
     # Test on one of your provided files
-    test_file = "./data/example3_frame_truss.xml"
+    test_file = "./data/eg2_beam_temp.xml"
     if os.path.exists(test_file):
         run_analysis(test_file)
     else:

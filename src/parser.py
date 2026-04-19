@@ -164,10 +164,25 @@ class UniformlyDL(MemberLoad):
 
 @dataclass
 class TemperatureL(MemberLoad):
-    Tu: float = 0.0
-    Tb: float = 0.0
+    Tu: float = 0.0  # Temperature at top surface
+    Tb: float = 0.0  # Temperature at bottom surface
 
     def FEF(self, fef_condition: str, L: float) -> list:
+        """
+        Calculates Fixed-End Forces for thermal loading per professor's formulation.
+        
+        Decomposition (from whiteboard):
+        - delta_T = T_b - T_u (total top-to-bottom difference)
+        - T_uniform = T_u + (delta_T / 2.0) = (T_u + T_b) / 2.0
+        - T_grad = delta_T / 2.0 (gradient component)
+        
+        Magnitudes:
+        - Axial: F_T = alpha * T_uniform * E * A
+        - Moment: M_T = (alpha * delta_T / d) * E * I  (NO 2 in numerator)
+        
+        FEF Vector (fixed-fixed): [-F_T, 0, -M_T, F_T, 0, M_T]^T
+        Adjusted for release conditions as needed.
+        """
         fef = [[0.0] for _ in range(6)]
         
         E = self.element.material.E
@@ -176,36 +191,44 @@ class TemperatureL(MemberLoad):
         I = self.element.section.I
         d = self.element.section.d
         
-        # Decompose trapezoidal profile
-        T_uniform = (self.Tu + self.Tb) / 2.0
-        T_grad = self.Tu - self.Tb
+        # STEP 1: Decompose thermal profile (professor's explicit formulation)
+        delta_T = self.Tb - self.Tu  # Total difference: bottom minus top
+        T_uniform = self.Tu + (delta_T / 2.0)  # Uniform component
+        # T_grad = delta_T / 2.0  # Gradient component (for documentation)
         
-        # Axial FEF (independent of bending releases)
-        fef[0][0] = -alpha * T_uniform * E * A
-        fef[3][0] =  alpha * T_uniform * E * A
+        # STEP 2: Compute axial force magnitude (independent of end releases)
+        F_T = alpha * T_uniform * E * A
+        fef[0][0] = -F_T
+        fef[3][0] =  F_T
         
+        # Truss elements only have axial thermal effects
         if self.element.type == 'truss':
             return fef
-            
-        # Fixed-Fixed Base Thermal Moments
-        M_zi = -(alpha * T_grad / d) * E * I if d != 0 else 0.0
-        M_zj =  (alpha * T_grad / d) * E * I if d != 0 else 0.0
         
-        # Adjust moments and induced shears based on end releases
+        # STEP 3: Compute moment magnitude using professor's exact formula
+        # Note: We negate the formula so that positive delta_T gradient (top hotter than bottom) 
+        # produces positive bending moment (upward curvature)
+        M_T = -(alpha * delta_T / d) * E * I if d != 0 else 0.0
+        
+        # STEP 4: Adjust FEF based on end releases
         if fef_condition == "fixed-fixed":
-            fef[2][0] = M_zi
-            fef[5][0] = M_zj
+            # Base case: fully fixed at both ends
+            fef[2][0] = -M_T
+            fef[5][0] =  M_T
         elif fef_condition == "pin-fixed":
+            # Pin at start, fixed at end: distribute moment and induce shear
             fef[2][0] = 0.0
-            fef[5][0] = M_zj - 0.5 * M_zi
-            fef[1][0] = -1.5 * M_zi / L
-            fef[4][0] =  1.5 * M_zi / L
+            fef[5][0] = M_T - 0.5 * M_T  # Moment adjustment for pin release
+            fef[1][0] = -1.5 * M_T / L    # Induced shear for equilibrium
+            fef[4][0] =  1.5 * M_T / L
         elif fef_condition == "fixed-pin":
-            fef[2][0] = M_zi - 0.5 * M_zj
+            # Fixed at start, pin at end: distribute moment and induce shear
+            fef[2][0] = -M_T + 0.5 * M_T  # Moment adjustment for pin release
             fef[5][0] = 0.0
-            fef[1][0] =  1.5 * M_zj / L
-            fef[4][0] = -1.5 * M_zj / L
+            fef[1][0] =  1.5 * M_T / L    # Induced shear for equilibrium
+            fef[4][0] = -1.5 * M_T / L
         elif fef_condition == "pin-pin":
+            # Both ends pinned: no bending moment restraint
             fef[2][0] = 0.0
             fef[5][0] = 0.0
             
@@ -366,12 +389,14 @@ class XMLParser:
                     lc.loads.append(TemperatureL(element, Tu=dT, Tb=dT))
                 elif load_type == 'gradient':
                     if element.type == 'truss':
-                        raise ValueError(f"Truss element {element.id} cannot take gradient temperature loads.")
+                        raise ValueError(f"Truss element {element.id} cannot accept gradient temperature loads. "
+                                       "Only uniform thermal loads are valid for truss elements.")
                     dT = float(tload.attrib.get('delta_T', 0.0))
                     lc.loads.append(TemperatureL(element, Tu=dT/2.0, Tb=-dT/2.0))
                 elif load_type == 'combined':
                     if element.type == 'truss':
-                        raise ValueError(f"Truss element {element.id} cannot take combined temperature loads.")
+                        raise ValueError(f"Truss element {element.id} cannot accept combined temperature loads. "
+                                       "Only uniform thermal loads are valid for truss elements.")
                     ttop = float(tload.attrib.get('T_top', 0.0))
                     tbot = float(tload.attrib.get('T_bottom', 0.0))
                     lc.loads.append(TemperatureL(element, Tu=ttop, Tb=tbot))
