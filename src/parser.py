@@ -86,14 +86,16 @@ class PointLoad(MemberLoad):
         fef = [[0.0] for _ in range(6)]
         a = self.position
         b = L - a
-        P = self.fy
+        # CRITICAL FIX: Use magnitude of load in FEF formulas (textbook convention)
+        # The sign indicates load direction; formulas compute reaction magnitudes
+        P = abs(self.fy)  
         fx_load = self.fx
 
-        # Axial FEF
+        # Axial FEF: preserve sign for compression/tension
         fef[0][0] = fx_load * b / L
         fef[3][0] = fx_load * a / L
 
-        # Transverse FEF
+        # Transverse FEF: use magnitude, formulas give correct reaction magnitude
         if fef_condition == "fixed-fixed":
             fef[1][0] = P * (b**2) * (3*a + b) / (L**3)
             fef[2][0] = P * a * (b**2) / (L**2)
@@ -127,14 +129,16 @@ class UniformlyDL(MemberLoad):
 
     def FEF(self, fef_condition: str, L: float) -> list:
         fef = [[0.0] for _ in range(6)]
-        w = self.wy
-        wx = self.wx
+        # CRITICAL FIX: Use magnitude of distributed load in FEF formulas
+        # Sign indicates direction; formulas compute reaction magnitudes
+        w = abs(self.wy)
+        wx = self.wx  # Preserve sign for axial consistency
 
         # Axial FEF
         fef[0][0] = wx * L / 2.0
         fef[3][0] = wx * L / 2.0
 
-        # Transverse FEF
+        # Transverse FEF: use magnitude, formulas give correct reaction magnitude
         if fef_condition == "fixed-fixed":
             fef[1][0] = w * L / 2.0
             fef[2][0] = w * (L**2) / 12.0

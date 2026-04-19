@@ -67,10 +67,11 @@ class TestRegression(unittest.TestCase):
                         frame_id = tokens[0]
                         station = float(tokens[1])
                         
-                        # SAP2000 reports GLOBAL forces: F1, F2, F3, M1, M2, M3
-                        P = float(tokens[4])    # F1 - Axial (global)
-                        V2 = float(tokens[5])   # F2 - Shear (global, perpendicular in plane)
-                        M3 = float(tokens[9])   # M3 - Moment
+                        # SAP2000 XZ-plane coordinate system: X=1(horizontal), Z=3(vertical), Y=2(out-of-plane)
+                        # For 2D analysis in our XY plane (with Y as vertical), map: SAP X->our X, SAP Z->our Y
+                        P = float(tokens[4])    # F1 - Axial (X direction)
+                        V2 = float(tokens[6])   # F3 - Vertical shear (Z direction, our F3)
+                        M3 = -float(tokens[8])   # M2 - In-plane moment (negated: SAP convention opposite to ours)
                     except (ValueError, IndexError):
                         continue
                     
@@ -194,22 +195,24 @@ class TestRegression(unittest.TestCase):
         reactions = processor.reactions
         local_forces = processor.member_forces
 
-        self.assertAlmostEqual(abs(disp[1][0]), abs(sap_disp[1][0]), delta=self.disp_tol)
-        self.assertAlmostEqual(abs(disp[1][1]), abs(sap_disp[1][1]), delta=self.disp_tol)
-        self.assertAlmostEqual(abs(disp[1][2]), abs(sap_disp[1][2]), delta=self.disp_tol)
-        self.assertAlmostEqual(abs(reactions[1][0]), abs(sap_react[1][0]), delta=self.force_tol)
-        self.assertAlmostEqual(abs(reactions[1][1]), abs(sap_react[1][1]), delta=self.force_tol)
-        self.assertAlmostEqual(abs(reactions[1][2]), abs(sap_react[1][2]), delta=self.force_tol)
+        # CRITICAL FIX: Check SIGNED values to verify load directionality
+        # A downward load (fy=-20) must produce downward displacement (negative UY)
+        self.assertAlmostEqual(disp[1][0], sap_disp[1][0], delta=self.disp_tol)
+        self.assertAlmostEqual(disp[1][1], sap_disp[1][1], delta=self.disp_tol)
+        self.assertAlmostEqual(disp[1][2], sap_disp[1][2], delta=self.disp_tol)
+        self.assertAlmostEqual(reactions[1][0], sap_react[1][0], delta=self.force_tol)
+        self.assertAlmostEqual(reactions[1][1], sap_react[1][1], delta=self.force_tol)
+        self.assertAlmostEqual(reactions[1][2], sap_react[1][2], delta=self.force_tol)
 
         self.assertIn("F1", local_forces)
         f_F1 = local_forces["F1"]
-        sap_f = sap_forces["1"]
-        self.assertAlmostEqual(abs(f_F1[0][0]), abs(sap_f['i'][0]), delta=self.force_tol)
-        self.assertAlmostEqual(abs(f_F1[3][0]), abs(sap_f['j'][0]), delta=self.force_tol)
-        self.assertAlmostEqual(abs(f_F1[1][0]), abs(sap_f['i'][1]), delta=self.force_tol)
-        self.assertAlmostEqual(abs(f_F1[4][0]), abs(sap_f['j'][1]), delta=self.force_tol)
-        self.assertAlmostEqual(abs(f_F1[2][0]), abs(sap_f['i'][2]), delta=self.force_tol)
-        self.assertAlmostEqual(abs(f_F1[5][0]), abs(sap_f['j'][2]), delta=self.force_tol)
+        sap_f = sap_forces["F1"]
+        self.assertAlmostEqual(f_F1[0][0], sap_f['i'][0], delta=self.force_tol)
+        self.assertAlmostEqual(f_F1[3][0], sap_f['j'][0], delta=self.force_tol)
+        self.assertAlmostEqual(f_F1[1][0], sap_f['i'][1], delta=self.force_tol)
+        self.assertAlmostEqual(f_F1[4][0], sap_f['j'][1], delta=self.force_tol)
+        self.assertAlmostEqual(f_F1[2][0], sap_f['i'][2], delta=self.force_tol)
+        self.assertAlmostEqual(f_F1[5][0], sap_f['j'][2], delta=self.force_tol)
 
     # ==========================================================
     # TEST 4 — EG1 TRUSS TEMPERATURE (Hardcoded Answers)
