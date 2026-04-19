@@ -3,7 +3,7 @@
 import os
 import math_utils
 from element_physics import ElementPhysics
-from parser import StructuralModel
+from parser import StructuralModel, NodalLoad
 
 class PostProcessor:
     def __init__(self, model: StructuralModel, D_active: list, load_case_id: str):
@@ -38,9 +38,9 @@ class PostProcessor:
         for el_id, el in self.model.elements.items():
             phys = ElementPhysics(el)
             
-            # 1. Retrieve condensed matrices
+            # 1. Retrieve condensed matrices (pass model for auto FEF detection)
             k_local = phys.get_local_k()
-            fef_local = phys.get_local_fef(self.load_case)
+            fef_local = phys.get_local_fef(self.load_case, self.model)
             k_cond, fef_cond = phys.condense(k_local, fef_local)
             
             # 2. Build rotation matrix [T] and extract global displacements
@@ -86,12 +86,14 @@ class PostProcessor:
                 if el.type == 'frame': self.reactions[el.node_j.id][2] += f_global[offset + 2][0]
                     
         # 5. Subtract applied nodal point loads from the calculated reactions
-        for pl in self.load_case.point_loads:
-            n_id = pl.node.id
-            if n_id in self.reactions:
-                self.reactions[n_id][0] -= pl.fx
-                self.reactions[n_id][1] -= pl.fy
-                self.reactions[n_id][2] -= pl.mz
+        for load in self.load_case.loads:
+            if isinstance(load, NodalLoad):
+                n_id = load.node.id
+                if n_id in self.reactions:
+                    nodal_forces = load.NodalLoads()
+                    self.reactions[n_id][0] -= nodal_forces[0]
+                    self.reactions[n_id][1] -= nodal_forces[1]
+                    self.reactions[n_id][2] -= nodal_forces[2]
 
     def write_results(self, filepath: str):
         """Formats and writes the engineering results to a text file."""

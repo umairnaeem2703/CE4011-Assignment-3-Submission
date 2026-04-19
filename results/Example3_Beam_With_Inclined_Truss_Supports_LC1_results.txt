@@ -1,6 +1,6 @@
 STRUCTURAL ANALYSIS REPORT
 Model: Example3_Beam_With_Inclined_Truss_Supports
-Load Case: 20 kN downward at midpoint of span b-d (LC1)
+Load Case: 20 kN downward at midpoint of span F2 (LC1)
 ============================================================
 
 1. NODAL DISPLACEMENTS

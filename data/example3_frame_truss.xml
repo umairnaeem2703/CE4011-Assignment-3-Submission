@@ -42,8 +42,8 @@
   </boundary_conditions>
 
   <load_cases>
-    <load_case id="LC1" name="20 kN downward at midpoint of span b-d">
-      <member_point_load element="F2" position="12.0" fy="-20.0" fef_condition="fixed-fixed"/>
+    <load_case id="LC1" name="20 kN downward at midpoint of span F2">
+      <member_point_load element="F2" position="12.0" fy="-20.0"/>
     </load_case>
   </load_cases>
 

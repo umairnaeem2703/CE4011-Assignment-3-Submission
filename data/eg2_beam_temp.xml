@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Whiteboard Example 2: Continuous Beam System
+  
+  Geometry:
+    Span AB = 8m
+    Span BC = 5m
+    
+  Supports:
+    A: Roller
+    B: Roller
+    C: Fixed
+    
+  Properties:
+    E = 200 GPa
+    alpha = 1.2e-5 /°C
+    Member AB: depth = 400 mm (0.4m), I = 200e6 mm⁴ (2.0e-4 m⁴)
+    Member BC: depth = 200 mm (0.2m), I = 50e6 mm⁴  (5.0e-5 m⁴)
+    
+  Loading:
+    Thermal gradient (combined). Bottom heated to 10°C, Top heated to 20°C.
+-->
+<structural_model name="Eg2_Beam_Temp">
+  <metadata>
+    <title>Example 2: Beam System with Thermal Gradient</title>
+  </metadata>
+  <units length="m" force="kN" temperature="C"/>
+  <materials>
+    <material id="steel" name="Steel 200 GPa" E="2.0e8" alpha="1.2e-5"/>
+  </materials>
+  <sections>
+    <!-- Area set artificially high (1.0 m²) to simulate "Axially Rigid" as stated on board -->
+    <section id="sec_AB" A="1.0" I="2.0e-4" d="0.4"/>
+    <section id="sec_BC" A="1.0" I="5.0e-5" d="0.2"/>
+  </sections>
+  <nodes>
+    <node id="1" x="0.0" y="0.0"/>
+    <node id="2" x="8.0" y="0.0"/>
+    <node id="3" x="13.0" y="0.0"/>
+  </nodes>
+  <elements>
+    <frame id="F1" node_i="1" node_j="2" material="steel" section="sec_AB"/>
+    <frame id="F2" node_i="2" node_j="3" material="steel" section="sec_BC"/>
+  </elements>
+  <boundary_conditions>
+    <support node="1" type="roller_x"/>
+    <support node="2" type="roller_x"/>
+    <support node="3" type="fixed"/>
+  </boundary_conditions>
+  <load_cases>
+    <load_case id="LC1">
+      <temperature_load type="combined" element="F1" T_top="20.0" T_bottom="10.0"/>
+      <temperature_load type="combined" element="F2" T_top="20.0" T_bottom="10.0"/>
+    </load_case>
+  </load_cases>
+</structural_model>

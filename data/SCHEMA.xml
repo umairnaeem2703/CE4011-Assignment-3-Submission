@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   ╔══════════════════════════════════════════════════════════════════════╗
-  ║         STRUCTURAL ANALYSIS XML INPUT — SCHEMA REFERENCE  v2        ║
+  ║         STRUCTURAL ANALYSIS XML INPUT — SCHEMA REFERENCE  v3        ║
   ╚══════════════════════════════════════════════════════════════════════╝
 
   SCOPE
   ─────
   2D structural analysis problems using the Direct Stiffness Method (DSM).
   Supports truss elements, frame elements (with optional moment releases),
-  nodal point loads, and distributed/concentrated loads applied directly
-  along frame members (member loads). Member loads generate fixed-end
-  forces (FEFs) that are assembled into the global load vector.
+  nodal point loads, member loads (UDL and concentrated), and temperature
+  actions (uniform, gradient, and combined).
 
   COORDINATE SYSTEM
   ─────────────────
@@ -19,44 +18,30 @@
     rz — rotation about z-axis, positive counter-clockwise (CCW)
 
   UNIT SYSTEM (declared once in <units>)
-    length → m       force → kN
-    Derived : E in kN/m²   (1 GPa = 1×10⁶ kN/m²)
-              A in m²      I in m⁴
-              load in kN   UDL in kN/m    moment in kN·m
+    length      → m       force → kN      temperature → °C
+    Derived : E     in kN/m²   (1 GPa = 1×10⁶ kN/m²)
+              A     in m²
+              I     in m⁴
+              d     in m        (section depth)
+              alpha in 1/°C     (coefficient of thermal expansion)
+              load  in kN
+              UDL   in kN/m
+              moment in kN·m
 
   ════════════════════════════════════════════════════════════════════════
-  FIXED-END FORCE (FEF) REFERENCE
+  FEF CONDITION — DETERMINED BY THE PROGRAM, NOT THE USER
   ════════════════════════════════════════════════════════════════════════
-  Member loads are converted to equivalent nodal loads via FEF formulas.
-  The correct formula set depends on the end condition of the element,
-  set via the fef_condition attribute on each member load tag.
+  In v2 the user had to supply a fef_condition attribute on every member
+  load.  In v3 this is REMOVED.  The program reads the <releases> declared
+  on the element and determines the correct condition automatically:
 
-  sign convention for FEF outputs:
-    Fy_i, Fy_j  — transverse reactions (positive = upward = +y)
-    Mz_i, Mz_j  — end moments       (positive = CCW)
-  Loads w and P are given as MAGNITUDES (positive values); direction is
-  specified by the sign of wy / fy on the load tag.
+    No releases on element          → fixed-fixed
+    <release end="i" dof="Mz"/>    → pin-fixed
+    <release end="j" dof="Mz"/>    → fixed-pin
+    Both ends released              → pin-pin
 
-  ┌──────────────┬────────────────────────────────────────────────────┐
-  │ fef_condition│ Description                                        │
-  ├──────────────┼────────────────────────────────────────────────────┤
-  │ fixed-fixed  │ Both ends have full moment continuity (standard).  │
-  │              │ Default for interior spans of continuous beams/     │
-  │              │ frames where no end-release is present.            │
-  ├──────────────┼────────────────────────────────────────────────────┤
-  │ pin-fixed    │ node_i end is moment-released (pinned); node_j end │
-  │              │ is continuous. Use when a <release end="i"/> is    │
-  │              │ declared on this element, or when node_i is a pin  │
-  │              │ support with no adjacent element providing moment  │
-  │              │ stiffness.                                         │
-  ├──────────────┼────────────────────────────────────────────────────┤
-  │ fixed-pin    │ node_j end is moment-released; node_i is           │
-  │              │ continuous. Mirror image of pin-fixed.             │
-  ├──────────────┼────────────────────────────────────────────────────┤
-  │ pin-pin      │ Both ends are moment-released. Element carries     │
-  │              │ transverse load as a simply-supported beam; no     │
-  │              │ end moments.                                       │
-  └──────────────┴────────────────────────────────────────────────────┘
+  The same rule applies to temperature loads.
+  The FEF formulas are shown below for developer reference only.
 
   ── UDL  (intensity w [kN/m], span L [m]) ────────────────────────────
 
@@ -82,43 +67,129 @@
       Fy_i =  Pb²(3a+b)/L³   Fy_j =  Pa²(3b+a)/L³
       Mz_i = -Pab²/L²         Mz_j = +Pa²b/L²
 
-    PIN-FIXED  (i pinned, j fixed)
-      Fy_i =  Pb²(L+a)/(2L³)  ... wait — simplified closed form:
-      Fy_i =  Pb(3L²−b²)/(2L³)·... see structural analysis textbook.
-      Use modified stiffness method: reduce element stiffness, then
-      back-calculate FEF. For reference only; solver handles internally.
-
-    FIXED-PIN  (i fixed, j pinned) — mirror of pin-fixed with a ↔ b.
-
     PIN-PIN
       Fy_i =  Pb/L            Fy_j =  Pa/L
       Mz_i =  0               Mz_j =  0
+
+    PIN-FIXED / FIXED-PIN — computed internally via modified stiffness.
+
+  ════════════════════════════════════════════════════════════════════════
+  TEMPERATURE LOADS — FEF REFERENCE  (developer reference)
+  ════════════════════════════════════════════════════════════════════════
+  Temperature actions are converted to equivalent nodal loads exactly
+  like mechanical member loads.  α is taken from the element's referenced
+  <material>; d is taken from its <section>.  The fef_condition is
+  determined from element releases (same rule as mechanical loads above).
+
+  All formulas below assume the fixed-fixed end condition.
+
+  Thermal strain:  ε_T = α · ΔT
+
+  ── CASE 1 — Uniform ΔT along the depth (axial action only) ──────────
+  A uniform temperature change causes the element to elongate (+ΔT) or
+  shorten (−ΔT).  No bending is induced.
+
+  In LOCAL coordinates (x̂ = axis from node_i to node_j):
+    f_xi = −α · ΔT · E · A       (negative = compression when ΔT > 0)
+    f_xj = +α · ΔT · E · A
+
+  No transverse or moment FEFs are produced.
+  Valid for both truss and frame elements.
+
+  Input attribute:
+    delta_T — uniform temperature change [°C]
+              positive = warming  (elongation)
+              negative = cooling  (shortening)
+
+  ── CASE 2 — Thermal gradient along the depth (bending action only) ──
+  A temperature difference ΔT between the top and bottom fibres induces
+  a curvature but NO net axial deformation.
+
+  Curvature:  φ = α · ΔT / d
+    where ΔT = T_top − T_bottom  [°C]   (positive = top warmer)
+          d  = section depth     [m]
+
+  For a fixed-fixed element the equivalent end moments are:
+    m_zi = −(α · ΔT / d) · E · I     (at node_i, CW for positive ΔT)
+    m_zj = +(α · ΔT / d) · E · I     (at node_j, CCW for positive ΔT)
+
+  No axial or transverse FEFs are produced.
+  Valid for frame elements only (requires I and d in <section>).
+
+  Input attribute:
+    delta_T — T_top − T_bottom [°C]
+              positive = top fibre warmer than bottom fibre
+              negative = bottom fibre warmer than top fibre
+
+  ── CASE 3 — Combined thermal action (trapezoidal distribution) ───────
+  Top and bottom fibres are at different temperatures.  The trapezoidal
+  profile is decomposed by the program into:
+
+    T_uniform = (T_top + T_bottom) / 2     ← uniform (rectangular) part
+    ΔT_grad   =  T_top − T_bottom          ← gradient (triangular) part
+
+  This produces BOTH axial and bending equivalent nodal loads:
+
+    Axial load  (from T_uniform — identical to Case 1 with ΔT = T_uniform):
+      f_xi = −α · T_uniform · E · A
+      f_xj = +α · T_uniform · E · A
+
+    Moments  (from ΔT_grad — identical to Case 2 with ΔT = ΔT_grad):
+      m_zi = −(α · ΔT_grad / d) · E · I
+      m_zj = +(α · ΔT_grad / d) · E · I
+
+  Valid for frame elements only (requires I and d in <section>).
+
+  Input attributes:
+    T_top    — temperature at the top fibre    [°C]
+    T_bottom — temperature at the bottom fibre [°C]
+
+  ── Truss elements and temperature loads ─────────────────────────────
+  Truss elements carry axial force only.  Case 1 (uniform ΔT) is the
+  only valid temperature type for a truss element.
+  Applying type="gradient" or type="combined" to a truss element is an
+  input error; the program will raise a descriptive error and stop.
 -->
 
-<structural_model name="SCHEMA_REFERENCE_v2">
+<structural_model name="SCHEMA_REFERENCE_v3">
 
   <!-- ── METADATA (optional, informational) ──────────────────────────── -->
   <metadata>
-    <title>Schema Reference v2</title>
-    <description>Full annotation of every valid tag and attribute.</description>
+    <title>Schema Reference v3</title>
+    <description>
+      Full annotation of every valid tag and attribute.
+      Key changes from v2:
+        - fef_condition removed from member_udl and member_point_load
+          (now determined automatically from element releases).
+        - alpha added to material (required for any temperature loads).
+        - d (section depth) added to section (required for Case 2 and Case 3).
+        - Three temperature load types introduced: uniform, gradient, combined.
+        - temperature unit added to units declaration.
+    </description>
   </metadata>
 
   <!-- ── UNITS (required) ─────────────────────────────────────────────
-       Declares the unit system. All numeric values must be consistent.
        Attributes:
-         length — base length unit  (use "m")
-         force  — base force unit   (use "kN")
+         length      — base length unit       (use "m")
+         force       — base force unit        (use "kN")
+         temperature — base temperature unit  (use "C" for Celsius)
   -->
-  <units length="m" force="kN"/>
+  <units length="m" force="kN" temperature="C"/>
 
   <!-- ── MATERIALS (required) ─────────────────────────────────────────
        Attributes:
-         id   — unique string referenced by elements
-         name — descriptive label
-         E    — Young's modulus [force/length²]
+         id    — unique string referenced by elements
+         name  — descriptive label
+         E     — Young's modulus [force/length²]
+                 Example: 2.0e8 kN/m² = 200 GPa
+         alpha — coefficient of thermal expansion [1/°C]
+                 REQUIRED when any temperature load targets an element
+                 that references this material.
+                 Typical steel value: 1.2e-5 /°C
+                 May be omitted (or zero) if no temperature loads are used.
   -->
   <materials>
-    <material id="steel_200" name="Steel 200 GPa" E="2.0e8"/>
+    <material id="steel_200" name="Steel 200 GPa" E="2.0e8" alpha="1.2e-5"/>
   </materials>
 
   <!-- ── SECTIONS (required) ──────────────────────────────────────────
@@ -126,12 +197,18 @@
          id   — unique string referenced by elements
          name — descriptive label
          A    — cross-sectional area [length²]
-         I    — second moment of area [length⁴]  (frame elements only)
-                Omit I for truss sections (not used).
+         I    — second moment of area [length⁴]
+                Required for frame elements. Omit for truss-only sections.
+         d    — section depth [length]
+                REQUIRED when a Case 2 or Case 3 temperature load targets
+                an element that uses this section.
+                Not used by mechanical member loads or Case 1 temperature.
+                May be omitted if no gradient or combined temperature loads
+                are used.
   -->
   <sections>
-    <section id="truss_sec"  name="Truss cross-section"  A="1.0e-4"/>
-    <section id="frame_sec"  name="Frame cross-section"  A="2.0e-2"  I="8.0e-2"/>
+    <section id="truss_sec" name="Truss cross-section"  A="1.0e-4"                   />
+    <section id="frame_sec" name="Frame cross-section"  A="2.0e-2" I="8.0e-2" d="0.3"/>
   </sections>
 
   <!-- ── NODES (required) ─────────────────────────────────────────────
@@ -141,9 +218,9 @@
          y  — y-coordinate [length]
   -->
   <nodes>
-    <node id="1"  x="0.0"   y="0.0"/>
-    <node id="2"  x="10.0"  y="0.0"/>
-    <node id="3"  x="10.0"  y="4.0"/>
+    <node id="1" x="0.0"  y="0.0"/>
+    <node id="2" x="10.0" y="0.0"/>
+    <node id="3" x="10.0" y="4.0"/>
   </nodes>
 
   <!-- ── ELEMENTS (required) ──────────────────────────────────────────
@@ -160,24 +237,28 @@
 
        <frame> optional child element — <releases>:
          Declares moment releases (internal hinges) at element ends.
-         <release end="i" dof="Mz"/>   — hinge at node_i end
-         <release end="j" dof="Mz"/>   — hinge at node_j end
+           <release end="i" dof="Mz"/>   — hinge at node_i end
+           <release end="j" dof="Mz"/>   — hinge at node_j end
          "Mz" is the only valid dof value in 2D.
 
-       Effect on FEF selection:
-         A release at end "i" → use fef_condition="pin-fixed" on member loads.
-         A release at end "j" → use fef_condition="fixed-pin" on member loads.
-         Releases at both ends → use fef_condition="pin-pin".
-         No releases         → use fef_condition="fixed-fixed"  (default).
+         The program uses these releases to determine the FEF condition
+         for ALL load types on this element (mechanical AND temperature).
+         No fef_condition attribute is needed on any load tag.
   -->
   <elements>
+
     <truss id="T1" node_i="1" node_j="2" material="steel_200" section="truss_sec"/>
+
     <frame id="F1" node_i="1" node_j="3" material="steel_200" section="frame_sec"/>
+
+    <!-- F2 has a moment release at its i-end → fef_condition = pin-fixed
+         The program detects this; no attribute needed on load tags. -->
     <frame id="F2" node_i="2" node_j="3" material="steel_200" section="frame_sec">
       <releases>
         <release end="i" dof="Mz"/>
       </releases>
     </frame>
+
   </elements>
 
   <!-- ── BOUNDARY CONDITIONS (required) ───────────────────────────────
@@ -205,57 +286,121 @@
          id   — unique string
          name — descriptive label (optional)
 
-       ── Nodal loads ──────────────────────────────────────────────────
+       ═══════════════════════════════════════════════════════════════
+       NODAL LOADS
+       ═══════════════════════════════════════════════════════════════
        <point_load> — concentrated load applied directly at a node.
          node — references a <node id>
-         fx   — global x-force  [force]        (positive = rightward)
-         fy   — global y-force  [force]        (positive = upward)
-         mz   — applied moment  [force·length] (positive = CCW)
+         fx   — global x-force  [force]         (positive = rightward)
+         fy   — global y-force  [force]         (positive = upward)
+         mz   — applied moment  [force·length]  (positive = CCW)
          Omitted attributes default to zero.
 
-       ── Member loads ─────────────────────────────────────────────────
-       Applied along the length of a <frame> element.
-       The solver converts them to equivalent nodal loads using the FEF
-       formulas shown in the header comment, selected by fef_condition.
+       ═══════════════════════════════════════════════════════════════
+       MEMBER LOADS  (frame elements only)
+       ═══════════════════════════════════════════════════════════════
+       The solver converts these to equivalent nodal loads using FEF
+       formulas.  The FEF condition is determined automatically from
+       the element's <releases>; do NOT add a fef_condition attribute.
 
-       <member_udl> — uniformly distributed load over the full element span.
-         element       — references a <frame id>
-         wy            — load intensity in global y [force/length]
-                         (negative = downward, positive = upward)
-         wx            — load intensity in global x [force/length] (optional)
-         fef_condition — "fixed-fixed" | "pin-fixed" | "fixed-pin" | "pin-pin"
-                         Determines which FEF formula set is applied.
-                         Default: "fixed-fixed".
+       <member_udl>
+         element — references a <frame id>
+         wy      — load intensity in global y [force/length]
+                   negative = downward, positive = upward
+         wx      — load intensity in global x [force/length]
+                   optional, defaults to zero
 
-       <member_point_load> — concentrated load at an interior point of an element.
-         element       — references a <frame id>
-         position      — distance from node_i along element axis [length]
-                         Must satisfy: 0 < position < element length.
-         fy            — transverse load in global y [force]
-                         (negative = downward, positive = upward)
-         fx            — axial load in global x [force] (optional)
-         fef_condition — same as for <member_udl>. Default: "fixed-fixed".
+       <member_point_load>
+         element  — references a <frame id>
+         position — distance from node_i along element axis [length]
+                    must satisfy: 0 < position < element length
+         fy       — transverse load in global y [force]
+                    negative = downward, positive = upward
+         fx       — axial load in global x [force]
+                    optional, defaults to zero
+
+       ═══════════════════════════════════════════════════════════════
+       TEMPERATURE LOADS
+       ═══════════════════════════════════════════════════════════════
+       Applied to individual elements.  α is read from the element's
+       <material>; d is read from its <section>.  The FEF condition is
+       determined automatically from element releases.
+       See the header comment for all FEF formulas.
+
+       <temperature_load type="uniform">
+         Uniform ΔT — axial action only.
+         Valid for truss and frame elements.
+         element — references a <truss id> or <frame id>
+         delta_T — uniform temperature change [°C]
+                   positive = warming / elongation
+                   negative = cooling / shortening
+
+       <temperature_load type="gradient">
+         Thermal gradient — bending action only, no axial change.
+         Valid for frame elements only (requires I and d in section).
+         element — references a <frame id>
+         delta_T — T_top − T_bottom [°C]
+                   positive = top fibre warmer than bottom
+
+       <temperature_load type="combined">
+         Trapezoidal profile — both axial and bending actions.
+         Program decomposes internally:
+           T_uniform = (T_top + T_bottom) / 2
+           ΔT_grad   =  T_top − T_bottom
+         Valid for frame elements only (requires I and d in section).
+         element  — references a <frame id>
+         T_top    — temperature at the top fibre    [°C]
+         T_bottom — temperature at the bottom fibre [°C]
   -->
   <load_cases>
-    <load_case id="LC1" name="Service loads">
 
-      <!-- Nodal load at node 3 -->
+    <!-- ── LC1: Mechanical loads only ──────────────────────────────── -->
+    <load_case id="LC1" name="Mechanical loads">
+
       <point_load node="3" fx="5.0" fy="-10.0" mz="0.0"/>
 
-      <!-- UDL on frame element F1, full span, downward 2 kN/m -->
-      <member_udl
-        element="F1"
-        wy="-2.0"
-        fef_condition="fixed-fixed"/>
+      <!-- fef_condition is NOT specified — program reads F1's releases.
+           F1 has no releases → fixed-fixed FEF formulas will be applied. -->
+      <member_udl element="F1" wy="-2.0"/>
 
-      <!-- Concentrated load on frame element F2, 3 m from node_i -->
-      <member_point_load
-        element="F2"
-        position="3.0"
-        fy="-20.0"
-        fef_condition="pin-fixed"/>
+      <!-- F2 has a release at end i → pin-fixed FEF formulas will be applied. -->
+      <member_point_load element="F2" position="3.0" fy="-20.0"/>
 
     </load_case>
+
+    <!-- ── LC2: Uniform temperature change (Case 1) ─────────────────── -->
+    <load_case id="LC2" name="Case 1 — uniform temperature change">
+
+      <!-- Truss T1 warms by 30 °C → equivalent axial loads.
+           F_T = α · ΔT · E · A = 1.2e-5 × 30 × 2.0e8 × 1.0e-4 = 7.2 kN -->
+      <temperature_load type="uniform" element="T1" delta_T="30.0"/>
+
+      <!-- Frame F1 warms by 30 °C — same formula; only axial FEFs produced. -->
+      <temperature_load type="uniform" element="F1" delta_T="30.0"/>
+
+    </load_case>
+
+    <!-- ── LC3: Thermal gradient (Case 2) ───────────────────────────── -->
+    <load_case id="LC3" name="Case 2 — thermal gradient along depth">
+
+      <!-- Frame F1: top fibre 20 °C warmer than bottom (delta_T = +20).
+           φ = α · ΔT / d  = 1.2e-5 × 20 / 0.3  = 8.0e-4 rad/m
+           M = φ · E · I   = 8.0e-4 × 2.0e8 × 8.0e-2 = 12 800 kN·m  -->
+      <temperature_load type="gradient" element="F1" delta_T="20.0"/>
+
+    </load_case>
+
+    <!-- ── LC4: Combined thermal action (Case 3) ────────────────────── -->
+    <load_case id="LC4" name="Case 3 — combined thermal action">
+
+      <!-- Frame F1: T_top = 35 °C, T_bottom = 15 °C.
+           Program decomposes:
+             T_uniform = (35 + 15) / 2 = 25 °C  → axial FEFs
+             ΔT_grad   =  35 − 15      = 20 °C  → moment FEFs  -->
+      <temperature_load type="combined" element="F1" T_top="35.0" T_bottom="15.0"/>
+
+    </load_case>
+
   </load_cases>
 
 </structural_model>

@@ -2,7 +2,7 @@
 
 import math
 import math_utils
-from parser import Element, LoadCase
+from parser import Element, LoadCase, MemberLoad, StructuralModel
 
 class ElementPhysics:
     def __init__(self, element: Element):
@@ -49,106 +49,51 @@ class ElementPhysics:
                 [       0,    k_v2,    k_r2,       0,   -k_v2,    k_r1]
             ]
 
-    def _compute_udl_fef(self, wy: float, wx: float, fef_condition: str) -> list:
-        """Derives local Fixed End Forces (Equivalent Nodal Loads) for a UDL."""
-        fef = math_utils.zeros(6, 1)
-        L = self.L
-        
-        # Axial FEF (linear split)
-        fef[0][0] = wx * L / 2.0
-        fef[3][0] = wx * L / 2.0
-        
-        # Transverse FEF
-        if fef_condition == "fixed-fixed":
-            fef[1][0] = wy * L / 2.0
-            fef[2][0] = wy * (L**2) / 12.0
-            fef[4][0] = wy * L / 2.0
-            fef[5][0] = -wy * (L**2) / 12.0
-            
-        elif fef_condition == "pin-fixed":
-            fef[1][0] = (3.0 / 8.0) * wy * L
-            fef[2][0] = 0.0
-            fef[4][0] = (5.0 / 8.0) * wy * L
-            fef[5][0] = wy * (L**2) / 8.0
-            
-        elif fef_condition == "fixed-pin":
-            fef[1][0] = (5.0 / 8.0) * wy * L
-            fef[2][0] = wy * (L**2) / 8.0
-            fef[4][0] = (3.0 / 8.0) * wy * L
-            fef[5][0] = 0.0
-            
-        elif fef_condition == "pin-pin":
-            fef[1][0] = wy * L / 2.0
-            fef[2][0] = 0.0
-            fef[4][0] = wy * L / 2.0
-            fef[5][0] = 0.0
-            
-        return fef
+    def _determine_fef_condition(self, model: StructuralModel) -> str:
+        """Auto-detects the correct FEF condition based on element releases and global supports."""
+        if self.element.type == 'truss':
+            return "pin-pin"
 
-    def _compute_point_load_fef(self, fy: float, fx: float, a: float, fef_condition: str) -> list:
-        """Derives local Fixed End Forces (Equivalent Nodal Loads) for a Member Point Load."""
-        fef = math_utils.zeros(6, 1)
-        L = self.L
-        b = L - a
-        
-        # Axial FEF
-        fef[0][0] = fx * b / L
-        fef[3][0] = fx * a / L
-        
-        # Transverse FEF
-        P = fy
-        if fef_condition == "fixed-fixed":
-            fef[1][0] = P * (b**2) * (3*a + b) / (L**3)
-            fef[2][0] = P * a * (b**2) / (L**2)
-            fef[4][0] = P * (a**2) * (3*b + a) / (L**3)
-            fef[5][0] = -P * (a**2) * b / (L**2)
-            
-        elif fef_condition == "pin-fixed":
-            Mz_j = P * a * b * (L + a) / (2 * L**2)
-            fef[1][0] = (P * b - Mz_j) / L
-            fef[2][0] = 0.0
-            fef[4][0] = (P * a + Mz_j) / L
-            fef[5][0] = Mz_j
-            
-        elif fef_condition == "fixed-pin":
-            Mz_i = P * a * b * (L + b) / (2 * L**2)
-            fef[1][0] = (P * b + Mz_i) / L
-            fef[2][0] = Mz_i
-            fef[4][0] = (P * a - Mz_i) / L
-            fef[5][0] = 0.0
-            
-        elif fef_condition == "pin-pin":
-            fef[1][0] = P * b / L
-            fef[2][0] = 0.0
-            fef[4][0] = P * a / L
-            fef[5][0] = 0.0
-            
-        return fef
+        rel_i = self.element.release_start
+        rel_j = self.element.release_end
 
-    def get_local_fef_point_load(self, P: float, a: float) -> list:
-        """Direct wrapper strictly to support test_unit.py Test 5."""
-        return self._compute_point_load_fef(fy=P, fx=0.0, a=a, fef_condition="fixed-fixed")
+        if model is not None:
+            # Check if node_i is a boundary pin with no other frame connections
+            sup_i = model.supports.get(self.element.node_i.id)
+            if sup_i and not sup_i.restrain_rz:
+                frames_at_i = sum(1 for e in model.elements.values() 
+                                  if e.type == 'frame' and 
+                                  (e.node_i.id == self.element.node_i.id or e.node_j.id == self.element.node_i.id))
+                if frames_at_i == 1:
+                    rel_i = True
 
-    def get_local_fef(self, load_case: LoadCase) -> list:
-        """Calculates combined Fixed End Forces (FEF) from all member loads."""
+            # Check if node_j is a boundary pin with no other frame connections
+            sup_j = model.supports.get(self.element.node_j.id)
+            if sup_j and not sup_j.restrain_rz:
+                frames_at_j = sum(1 for e in model.elements.values() 
+                                  if e.type == 'frame' and 
+                                  (e.node_i.id == self.element.node_j.id or e.node_j.id == self.element.node_j.id))
+                if frames_at_j == 1:
+                    rel_j = True
+
+        if rel_i and rel_j: return "pin-pin"
+        if rel_i: return "pin-fixed"
+        if rel_j: return "fixed-pin"
+        return "fixed-fixed"
+
+    def get_local_fef(self, load_case: LoadCase, model: StructuralModel = None) -> list:
+        """Calculates combined Fixed End Forces (FEF) delegated to the load subclasses."""
         if self.element.type == 'truss':
             return math_utils.zeros(4, 1)
 
         fef_total = math_utils.zeros(6, 1)
+        fef_cond = self._determine_fef_condition(model)
 
-        # Apply UDLs (Both v1 generic UDLs and v2 member_udl)
-        for udl in load_case.udls:
-            if udl.element.id == self.element.id:
-                f_cond = getattr(udl, 'fef_condition', 'fixed-fixed')
-                fef_udl = self._compute_udl_fef(udl.wy, udl.wx, f_cond)
-                fef_total = math_utils.add(fef_total, fef_udl)
-
-        # Apply point loads positioned along the member
-        for mpl in load_case.member_point_loads:
-            if mpl.element.id == self.element.id:
-                f_cond = getattr(mpl, 'fef_condition', 'fixed-fixed')
-                fef_mpl = self._compute_point_load_fef(mpl.fy, mpl.fx, mpl.position, f_cond)
-                fef_total = math_utils.add(fef_total, fef_mpl)
+        for load in load_case.loads:
+            if isinstance(load, MemberLoad) and load.element.id == self.element.id:
+                # Load instances calculate their own FEF based on the automatically determined condition
+                fef_member = load.FEF(fef_cond, self.L)
+                fef_total = math_utils.add(fef_total, fef_member)
 
         return fef_total
 

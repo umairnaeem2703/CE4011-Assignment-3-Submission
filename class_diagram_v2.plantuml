@@ -1,0 +1,227 @@
+@startuml Class Diagram Core Engine
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam nodesep 50
+skinparam ranksep 50
+
+title Detailed UML Class Diagram
+
+package "Data Models (parser.py)" {
+
+    class Material {
+        + id: str
+        + E: float
+        + alpha: float
+    }
+
+    class Section {
+        + id: str
+        + A: float
+        + I: float
+        + d: float
+    }
+
+    class Node {
+        + id: int
+        + x: float
+        + y: float
+        + dofs: List[int]
+    }
+
+    class Element {
+        + id: str
+        + type: str
+        + release_start: bool
+        + release_end: bool
+        + node_i: Node
+        + node_j: Node
+        + material: Material
+        + section: Section
+    }
+
+    class Support {
+        + node: Node
+        + restrain_ux: bool
+        + restrain_uy: bool
+        + restrain_rz: bool
+    }
+
+    abstract class Load {
+        + {abstract} NodalLoads() : list
+        + {abstract} FEF(fef_condition: str, L: float) : list
+    }
+
+    class NodalLoad {
+        + node: Node
+        + fx: float
+        + fy: float
+        + mz: float
+        + NodalLoads() : list
+        + FEF(fef_condition: str, L: float) : list
+    }
+
+    abstract class MemberLoad {
+        + element: Element
+        + NodalLoads() : list
+    }
+
+    class PointLoad {
+        + position: float
+        + fx: float
+        + fy: float
+        + FEF(fef_condition: str, L: float) : list
+    }
+
+    class UniformlyDL {
+        + wx: float
+        + wy: float
+        + is_local: bool
+        + FEF(fef_condition: str, L: float) : list
+    }
+
+    class TemperatureL {
+        + Tu: float
+        + Tb: float
+        + FEF(fef_condition: str, L: float) : list
+    }
+
+    class LoadCase {
+        + id: str
+        + name: str
+        + loads: List[Load]
+    }
+
+    class StructuralModel {
+        + name: str
+        + materials: Dict[str, Material]
+        + sections: Dict[str, Section]
+        + nodes: Dict[int, Node]
+        + elements: Dict[str, Element]
+        + supports: Dict[int, Support]
+        + load_cases: Dict[str, LoadCase]
+    }
+}
+
+package "I/O & Parsing" {
+    class XMLParser {
+        + filepath: str
+        + model: StructuralModel
+        + parse() : StructuralModel
+        - _parse_materials() : void
+        - _parse_sections() : void
+        - _parse_nodes() : void
+        - _parse_elements() : void
+        - _parse_boundaries() : void
+        - _parse_loads() : void
+    }
+}
+
+package "Pre-Processing & Validation" {
+    class StructuralValidator {
+        + model: StructuralModel
+        + validate() : void
+    }
+
+    class DOFOptimizer {
+        + model: StructuralModel
+        + num_equations: int
+        + semi_bandwidth: int
+        + full_bandwidth: int
+        + optimize() : tuple[int, int, int]
+        - _get_active_nodes() : set
+        - _build_adjacency_list() : dict
+        - _reverse_cuthill_mckee(adj: dict) : list
+        - _assign_dofs(rcm_order: list) : void
+        - _calculate_bandwidth() : void
+        - _has_rotational_stiffness(node_id: int) : bool
+    }
+}
+
+package "Analysis Core" {
+    class ElementPhysics {
+        + element: Element
+        + L: float
+        + cos_x: float
+        + sin_x: float
+        + get_local_k() : list
+        + get_local_fef(load_case: LoadCase, model: StructuralModel) : list
+        + condense(k_local: list, fef_local: list) : tuple[list, list]
+        + transform_to_global(k_local: list, fef_local: list) : tuple[list, list]
+        + recover_local_forces(u_local: list, fef_local: list) : list
+        - _calculate_geometry() : tuple[float, float, float]
+        - _determine_fef_condition(model: StructuralModel) : str
+    }
+
+    class MatrixAssembler {
+        + model: StructuralModel
+        + num_active_dofs: int
+        + semi_bandwidth: int
+        + assemble(load_case_id: str) : tuple[list, list]
+    }
+
+    class BandedSolver {
+        + K: list
+        + F: list
+        + semi_bw: int
+        + num_eq: int
+        + solve() : list
+    }
+    
+    class UnstableStructureError {
+        <<Exception>>
+    }
+}
+
+package "Post-Processing" {
+    class PostProcessor {
+        + model: StructuralModel
+        + D_active: list
+        + load_case: LoadCase
+        + displacements: dict
+        + member_forces: dict
+        + reactions: dict
+        + write_results(filepath: str) : void
+        - _build_full_displacements() : void
+        - _compute_forces_and_reactions() : void
+    }
+}
+
+' Data Model Relationships
+StructuralModel "1" *-- "*" Material
+StructuralModel "1" *-- "*" Section
+StructuralModel "1" *-- "*" Node
+StructuralModel "1" *-- "*" Element
+StructuralModel "1" *-- "*" Support
+StructuralModel "1" *-- "*" LoadCase
+LoadCase "1" *-- "*" Load
+
+Load <|-- NodalLoad
+Load <|-- MemberLoad
+MemberLoad <|-- PointLoad
+MemberLoad <|-- UniformlyDL
+MemberLoad <|-- TemperatureL
+
+Element "*" o-- "1" Material
+Element "*" o-- "1" Section
+Element "*" o-- "2" Node
+Support "*" o-- "1" Node
+NodalLoad "*" o-- "1" Node
+MemberLoad "*" o-- "1" Element
+
+' System Architecture Relationships
+XMLParser .> StructuralModel : creates
+StructuralValidator --> StructuralModel : inspects
+DOFOptimizer --> StructuralModel : optimizes DOFs
+MatrixAssembler --> StructuralModel : reads
+PostProcessor --> StructuralModel : reads
+
+MatrixAssembler ..> ElementPhysics : uses
+PostProcessor ..> ElementPhysics : uses
+
+DOFOptimizer ..> StructuralValidator : calls
+BandedSolver ..> UnstableStructureError : throws
+StructuralValidator ..> UnstableStructureError : throws
+
+@enduml
+```
