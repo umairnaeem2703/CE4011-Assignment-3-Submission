@@ -272,7 +272,24 @@
                   "roller_y" → ux=1  uy=0  rz=0  (free to slide in y)
                OR specify DOFs individually (1=restrained, 0=free):
                   ux="1" uy="1" rz="0"
-       Note: truss nodes have no rz DOF; rz is ignored for truss-only nodes.
+       
+       PRESCRIBED SUPPORT SETTLEMENTS (optional):
+       Settlements are prescribed displacements applied to restrained DOFs.
+       Use any of these optional float attributes (default = 0.0):
+         settlement_ux — prescribed displacement in global x [length]
+         settlement_uy — prescribed displacement in global y [length]
+         settlement_rz — prescribed rotation about z axis [radians]
+       
+       Example: A 2 mm settlement downward at node 2:
+         <support node="2" type="pin" settlement_uy="-0.002"/>
+       
+       The solver implements settlements using matrix partitioning:
+       Active DOF equation: K_ff * U_f = F_f - K_fr * U_r
+       where U_r contains the prescribed settlement values, and the
+       unbalanced force term (-K_fr * U_r) is computed at the element level.
+       
+       Note: truss nodes have no rz DOF; settlement_rz is ignored for 
+              truss-only nodes.
   -->
   <boundary_conditions>
     <support node="1" type="fixed"/>

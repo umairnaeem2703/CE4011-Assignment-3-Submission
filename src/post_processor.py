@@ -19,14 +19,39 @@ class PostProcessor:
         self._compute_forces_and_reactions()
 
     def _build_full_displacements(self):
-        """Maps the solved active equations back to all nodes (including 0.0 for restrained DOFs)."""
+        """
+        Maps the solved active DOF displacements back to all nodes,
+        including prescribed settlement values at restrained DOFs.
+        
+        For each node:
+          - Active DOFs: use the solved value from D_active
+          - Restrained DOFs with settlement: use the prescribed settlement value
+          - Restrained DOFs without settlement: use 0.0
+        """
         for n_id, node in self.model.nodes.items():
             disp = []
-            for dof in node.dofs:
+            for dof_idx, dof in enumerate(node.dofs):
                 if dof >= 0:
+                    # Active DOF: use solved value
                     disp.append(self.D_active[dof][0])
                 else:
-                    disp.append(0.0)
+                    # Restrained DOF: check for prescribed settlement
+                    support = self.model.supports.get(n_id)
+                    if support is not None:
+                        if dof_idx == 0 and support.restrain_ux:
+                            # X-direction restrained with possible settlement
+                            disp.append(support.settlement_ux)
+                        elif dof_idx == 1 and support.restrain_uy:
+                            # Y-direction restrained with possible settlement
+                            disp.append(support.settlement_uy)
+                        elif dof_idx == 2 and support.restrain_rz:
+                            # Rotation restrained (settlement_rz not yet implemented)
+                            disp.append(0.0)
+                        else:
+                            disp.append(0.0)
+                    else:
+                        # No support at this node, restrained DOF = 0.0
+                        disp.append(0.0)
             self.displacements[n_id] = disp
 
     def _compute_forces_and_reactions(self):

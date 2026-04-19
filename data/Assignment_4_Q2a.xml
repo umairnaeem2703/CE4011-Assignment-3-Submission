@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<structural_model name="Assignment_4_Q2a">
+  <metadata>
+    <title>Q2a - Support Settlement Analysis</title>
+    <description>Concrete frame with a steel truss member subjected to 2mm settlement at node E.</description>
+  </metadata>
+
+  <units length="m" force="kN" temperature="C"/>
+
+  <materials>
+    <material id="conc" name="Concrete" E="30000000" alpha="0.0"/>
+    <material id="steel" name="Steel" E="200000000" alpha="0.0"/>
+  </materials>
+
+  <sections>
+    <section id="sec_conc" name="50x50 Concrete" A="0.25" I="0.00520833" d="0.5"/>
+    <section id="sec_truss" name="Pipe Truss" A="0.000091106"/>
+  </sections>
+
+  <nodes>
+    <node id="1" x="0.0" y="4.0"/> <!-- A -->
+    <node id="2" x="4.0" y="4.0"/> <!-- B -->
+    <node id="3" x="12.0" y="4.0"/> <!-- C -->
+    <node id="4" x="15.0" y="4.0"/> <!-- D -->
+    <node id="5" x="4.0" y="0.0"/> <!-- E -->
+    <node id="6" x="9.0" y="0.0"/> <!-- F -->
+  </nodes>
+
+  <elements>
+    <frame id="F1" node_i="1" node_j="2" material="conc" section="sec_conc"/>
+    <frame id="F2" node_i="2" node_j="3" material="conc" section="sec_conc"/>
+    <frame id="F3" node_i="3" node_j="4" material="conc" section="sec_conc"/>
+    <frame id="F4" node_i="2" node_j="5" material="conc" section="sec_conc"/>
+    <truss id="T1" node_i="6" node_j="3" material="steel" section="sec_truss"/>
+  </elements>
+
+  <boundary_conditions>
+    <support node="1" type="pin" settlement_ux="0.0" settlement_uy="0.0"/>
+    <!-- Node 5 has a vertical settlement of 2mm (0.002m) -->
+    <support node="5" ux="1" uy="1" rz="0" settlement_ux="0.0" settlement_uy="-0.002"/>
+    <support node="6" type="pin" settlement_ux="0.0" settlement_uy="0.0"/>
+  </boundary_conditions>
+
+  <load_cases>
+    <load_case id="LC1" name="Settlement Case">
+      <!-- Settlement is handled at the boundary condition level -->
+    </load_case>
+  </load_cases>
+</structural_model>

@@ -1,18 +1,18 @@
-SAP2000 v16.1.1    5/1/14 0:24:18
+SAP2000 v16.1.1    5/1/14 4:21:40
 
 Table:  Element Joint Forces - Frames
 
        Frame       Joint  OutputCase    CaseType          F1          F2          F3          M1          M2          M3   FrameElem
                                                           KN          KN          KN        KN-m        KN-m        KN-m            
 
-          F1           1       POINT   LinStatic     -14.371       0.000      -0.604      0.0000     -3.5361      0.0000        F1-1
-          F1           2       POINT   LinStatic      14.371       0.000       0.604      0.0000    -39.5773      0.0000        F1-1
-          F2           2       POINT   LinStatic      -4.371       0.000     -10.604      0.0000     39.5773      0.0000        F2-1
-          F2           3       POINT   LinStatic       4.371       0.000      10.604      0.0000      2.8406      0.0000        F2-1
-          F3           4       POINT   LinStatic   3.553E-15       0.000      25.000      0.0000   8.171E-14      0.0000        F3-1
-          F3           3       POINT   LinStatic  -3.553E-15       0.000     -25.000      0.0000  -2.132E-14      0.0000        F3-1
-          F4           1       POINT   LinStatic      -5.629       0.000      -4.396      0.0000      3.5361      0.0000        F4-1
-          F4           3       POINT   LinStatic       5.629       0.000       4.396      0.0000     -2.8406      0.0000        F4-1
+          F1           1       POINT   LinStatic     -14.514       0.000      -0.727      0.0000     -3.5389      0.0000        F1-1
+          F1           2       POINT   LinStatic      14.514       0.000       0.727      0.0000    -40.0018      0.0000        F1-1
+          F2           2       POINT   LinStatic      -4.514       0.000     -10.727      0.0000     40.0018      0.0000        F2-1
+          F2           3       POINT   LinStatic       4.514       0.000      10.727      0.0000      2.9054      0.0000        F2-1
+          F3           4       POINT   LinStatic  -7.105E-14       0.000      25.000      0.0000  -5.684E-14      0.0000        F3-1
+          F3           3       POINT   LinStatic   7.105E-14       0.000     -25.000      0.0000  -7.105E-14      0.0000        F3-1
+          F4           1       POINT   LinStatic      -5.486       0.000      -4.273      0.0000      3.5389      0.0000        F4-1
+          F4           3       POINT   LinStatic       5.486       0.000       4.273      0.0000     -2.9054      0.0000        F4-1
 
 
 Table:  Joint Displacements
@@ -20,10 +20,10 @@ Table:  Joint Displacements
        Joint  OutputCase    CaseType          U1          U2          U3          R1          R2          R3
                                                m           m           m     Radians     Radians     Radians
 
-           1       POINT   LinStatic    0.000000    0.000000    0.000000    0.000000    0.011497    0.000000
-           2       POINT   LinStatic    0.032005    0.000000    0.000453    0.000000    0.008118    0.000000
-           3       POINT   LinStatic    0.036376    0.000000   -0.018750    0.000000    0.003526    0.000000
-           4       POINT   LinStatic    0.025797    0.000000    0.000000    0.000000    0.003526    0.000000
+           1       POINT   LinStatic    0.000000    0.000000    0.000000    0.000000    0.011455    0.000000
+           2       POINT   LinStatic    0.031277    0.000000    0.000545    0.000000    0.008036    0.000000
+           3       POINT   LinStatic    0.035791    0.000000   -0.018750    0.000000    0.003399    0.000000
+           4       POINT   LinStatic    0.025593    0.000000    0.000000    0.000000    0.003399    0.000000
 
 
 Table:  Joint Reactions

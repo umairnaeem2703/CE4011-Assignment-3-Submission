@@ -44,6 +44,9 @@ class Support:
     restrain_ux: bool = False
     restrain_uy: bool = False
     restrain_rz: bool = False
+    settlement_ux: float = 0.0    # Prescribed displacement in x direction [length]
+    settlement_uy: float = 0.0    # Prescribed displacement in y direction [length]
+    settlement_rz: float = 0.0    # Prescribed rotation about z axis [radians]
 
 # --- LOAD OOP HIERARCHY (From Diagram) ---
 
@@ -344,7 +347,31 @@ class XMLParser:
                 uy = bool(int(sup.attrib.get('uy', 0)))
                 rz = bool(int(sup.attrib.get('rz', 0)))
 
-            self.model.supports[node.id] = Support(node, ux, uy, rz)
+    def _parse_boundaries(self):
+        for sup in self.root.find('boundary_conditions').findall('support'):
+            node = self.model.nodes[int(sup.attrib['node'])]
+            sup_type = sup.attrib.get('type')
+            
+            ux = uy = rz = False
+            
+            if sup_type == 'fixed':
+                ux = uy = rz = True
+            elif sup_type == 'pin':
+                ux = uy = True; rz = False
+            elif sup_type == 'roller_x':
+                ux = False; uy = True; rz = False
+            elif sup_type == 'roller_y':
+                ux = True; uy = False; rz = False
+            else:
+                ux = bool(int(sup.attrib.get('ux', 0)))
+                uy = bool(int(sup.attrib.get('uy', 0)))
+                rz = bool(int(sup.attrib.get('rz', 0)))
+
+            # Extract settlement values (default to 0.0 if not provided)
+            settlement_ux = float(sup.attrib.get('settlement_ux', 0.0))
+            settlement_uy = float(sup.attrib.get('settlement_uy', 0.0))
+
+            self.model.supports[node.id] = Support(node, ux, uy, rz, settlement_ux, settlement_uy)
 
     def _parse_loads(self):
         loads_node = self.root.find('load_cases')

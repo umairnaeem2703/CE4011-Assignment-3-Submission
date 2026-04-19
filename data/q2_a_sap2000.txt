@@ -1,0 +1,42 @@
+SAP2000 v16.1.1    5/1/14 2:54:45
+
+Table:  Element Joint Forces - Frames
+
+       Frame       Joint  OutputCase    CaseType          F1          F2          F3          M1          M2          M3   FrameElem
+                                                          KN          KN          KN        KN-m        KN-m        KN-m            
+
+          F1           1        DEAD   LinStatic      -6.654       0.000       9.422      0.0000   8.882E-15      0.0000        F1-1
+          F1           2        DEAD   LinStatic       6.654       0.000      -9.422      0.0000    -37.6888      0.0000        F1-1
+          F2           2        DEAD   LinStatic      -1.661       0.000      -2.215      0.0000     17.7183      0.0000        F2-1
+          F2           3        DEAD   LinStatic       1.661       0.000       2.215      0.0000  -7.105E-15      0.0000        F2-1
+          F3           3        DEAD   LinStatic       0.000       0.000   3.553E-15      0.0000      0.0000      0.0000        F3-1
+          F3           4        DEAD   LinStatic       0.000       0.000  -3.553E-15      0.0000      0.0000      0.0000        F3-1
+          F4           5        DEAD   LinStatic       4.993       0.000     -11.637      0.0000      0.0000      0.0000        F4-1
+          F4           2        DEAD   LinStatic      -4.993       0.000      11.637      0.0000     19.9705      0.0000        F4-1
+          T1           6        DEAD   LinStatic       1.661       0.000       2.215      0.0000      0.0000      0.0000        T1-1
+          T1           3        DEAD   LinStatic      -1.661       0.000      -2.215      0.0000      0.0000      0.0000        T1-1
+
+
+Table:  Joint Displacements
+
+       Joint  OutputCase    CaseType          U1          U2          U3          R1          R2          R3
+                                               m           m           m     Radians     Radians     Radians
+
+           1        DEAD   LinStatic    0.000000    0.000000    0.000000    0.000000    0.000656    0.000000
+           2        DEAD   LinStatic   3.549E-06    0.000000   -0.001994    0.000000    0.000173    0.000000
+           3        DEAD   LinStatic   5.320E-06    0.000000   -0.000954    0.000000   -0.000280    0.000000
+           4        DEAD   LinStatic   5.320E-06    0.000000   -0.000112    0.000000   -0.000280    0.000000
+           5        DEAD   LinStatic    0.000000    0.000000   -0.002000    0.000000   -0.000082    0.000000
+           6        DEAD   LinStatic    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+
+
+Table:  Joint Reactions
+
+       Joint  OutputCase    CaseType          F1          F2          F3          M1          M2          M3
+                                              KN          KN          KN        KN-m        KN-m        KN-m
+
+           1        DEAD   LinStatic      -6.654       0.000       9.422      0.0000      0.0000      0.0000
+           5        DEAD   LinStatic       4.993       0.000     -11.637      0.0000      0.0000      0.0000
+           6        DEAD   LinStatic       1.661       0.000       2.215      0.0000      0.0000      0.0000
+
+
