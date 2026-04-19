@@ -58,7 +58,7 @@ class ElementPhysics:
         rel_j = self.element.release_end
 
         if model is not None:
-            # Check if node_i is a boundary pin with no other frame connections
+            # Check if node_i is a boundary pin (single frame connection)
             sup_i = model.supports.get(self.element.node_i.id)
             if sup_i and not sup_i.restrain_rz:
                 frames_at_i = sum(1 for e in model.elements.values() 
@@ -67,7 +67,7 @@ class ElementPhysics:
                 if frames_at_i == 1:
                     rel_i = True
 
-            # Check if node_j is a boundary pin with no other frame connections
+            # Check if node_j is a boundary pin (single frame connection)
             sup_j = model.supports.get(self.element.node_j.id)
             if sup_j and not sup_j.restrain_rz:
                 frames_at_j = sum(1 for e in model.elements.values() 
@@ -88,44 +88,36 @@ class ElementPhysics:
         
         delta_T = Tb - Tu
         T_uniform = Tu + (delta_T / 2.0)
-        
-        # F_T is the compressive force needed to restrain thermal expansion
         F_T = alpha * T_uniform * E * A
         
         if self.element.type == 'truss':
-            # Restraining forces: Node I pushes right (+), Node J pushes left (-)
             return [[F_T], [0.0], [-F_T], [0.0]]
             
         else:
             I = self.element.section.I
             d = self.element.section.d
-            
-            # M_T is the restraining moment
             M_T = (alpha * delta_T / d) * E * I if d != 0 else 0.0
-            
             return [[F_T], [0.0], [M_T], [-F_T], [0.0], [-M_T]]
 
     def get_local_fef(self, load_case: LoadCase, model: StructuralModel = None) -> list:
         """Calculates combined Fixed End Forces (FEF) delegated to the load subclasses."""
         if self.element.type == 'truss':
             fef_total = math_utils.zeros(4, 1)
-            fef_cond = "pin-pin"  # Trusses always use pin-pin for FEF
+            fef_cond = "pin-pin"
         else:
             fef_total = math_utils.zeros(6, 1)
             fef_cond = self._determine_fef_condition(model)
 
         for load in load_case.loads:
             if isinstance(load, MemberLoad) and load.element.id == self.element.id:
-                # Handle thermal loads with corrected sign convention
                 if hasattr(load, 'Tu'):
-                    # Thermal load - use the corrected calculate_thermal_fef
+                    # Thermal load - use the specialized calculation
                     fef_member = self.calculate_thermal_fef(load.Tu, load.Tb)
                 else:
                     # Other member loads - use legacy FEF calculation
                     load_fef_cond = fef_cond
                     fef_member = load.FEF(load_fef_cond, self.L)
-                    
-                    # For trusses, extract only the first 4 components (axial only)
+                    # Extract only axial components for trusses
                     if self.element.type == 'truss':
                         fef_member = [[fef_member[i][0]] for i in range(4)]
                 

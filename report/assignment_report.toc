@@ -1,0 +1,57 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}Revisions to the Core Architecture}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Motivation: Static XML to Dynamic Class Structure}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}The FEF Decoupling Strategy}{2}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Problem with Static Attributes}{2}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Solution: Specialized \texttt {TemperatureL} Class}{2}{subsubsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.3}Enhanced XML Parser with Expressive Tags}{3}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Domain Model Class Hierarchy}{3}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Object-Oriented Design}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Class Diagram: Domain Model}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Class Diagram: Analysis Logic}{4}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Class Diagram: System Architecture}{5}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Activity Diagram: Solver Workflow}{6}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Sequence Diagram: Interaction Protocol}{7}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Q1 --- Feature Implementation}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Temperature Loading (Part a)}{7}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Linear Thermal Profile Decomposition}{7}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}Fixed-End Force Formulation}{7}{subsubsection.4.1.2}%
+\contentsline {paragraph}{Axial Thermal Force}{7}{section*.1}%
+\contentsline {paragraph}{Thermal Moment (Frame Elements Only)}{8}{section*.2}%
+\contentsline {subsubsection}{\numberline {4.1.3}Implementation in \texttt {TemperatureL} Class}{8}{subsubsection.4.1.3}%
+\contentsline {subsubsection}{\numberline {4.1.4}Physical Interpretation}{9}{subsubsection.4.1.4}%
+\contentsline {subsection}{\numberline {4.2}Support Settlements (Part b)}{9}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Matrix Partitioning Strategy}{9}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Settlement-Induced Element Forces}{10}{subsubsection.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.3}Post-Processing: Stitching Complete Displacements}{10}{subsubsection.4.2.3}%
+\contentsline {subsubsection}{\numberline {4.2.4}Extended Support Dataclass}{10}{subsubsection.4.2.4}%
+\contentsline {subsubsection}{\numberline {4.2.5}Physical Interpretation}{11}{subsubsection.4.2.5}%
+\contentsline {section}{\numberline {5}Q2 --- Numerical Analysis and Validation}{11}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Validation Methodology}{11}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Part a: Settlement Analysis}{11}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Problem Statement}{11}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.2}Solution: Nodal Displacements}{12}{subsubsection.5.2.2}%
+\contentsline {subsubsection}{\numberline {5.2.3}Solution: Support Reactions}{12}{subsubsection.5.2.3}%
+\contentsline {subsubsection}{\numberline {5.2.4}Solution: Member-End Forces}{13}{subsubsection.5.2.4}%
+\contentsline {subsubsection}{\numberline {5.2.5}Validation Summary}{13}{subsubsection.5.2.5}%
+\contentsline {subsubsection}{\numberline {5.2.6}SAP2000 Model --- Settlement Case (Q2a)}{13}{subsubsection.5.2.6}%
+\contentsline {subsubsection}{\numberline {5.2.7}Solver Results --- Settlement Case (Q2a)}{14}{subsubsection.5.2.7}%
+\contentsline {subsection}{\numberline {5.3}Part b: Thermal Loading Analysis}{14}{subsection.5.3}%
+\contentsline {subsubsection}{\numberline {5.3.1}Problem Statement}{14}{subsubsection.5.3.1}%
+\contentsline {subsubsection}{\numberline {5.3.2}Solution: Nodal Displacements}{15}{subsubsection.5.3.2}%
+\contentsline {subsubsection}{\numberline {5.3.3}Solution: Member-End Forces}{15}{subsubsection.5.3.3}%
+\contentsline {subsubsection}{\numberline {5.3.4}Solution: Support Reactions}{16}{subsubsection.5.3.4}%
+\contentsline {subsubsection}{\numberline {5.3.5}Validation Summary}{16}{subsubsection.5.3.5}%
+\contentsline {subsubsection}{\numberline {5.3.6}SAP2000 Model --- Thermal Case (Q2b)}{16}{subsubsection.5.3.6}%
+\contentsline {subsubsection}{\numberline {5.3.7}Solver Results --- Thermal Case (Q2b)}{17}{subsubsection.5.3.7}%
+\contentsline {subsubsection}{\numberline {5.3.8}Regression Test Conclusion}{17}{subsubsection.5.3.8}%
+\contentsline {section}{\numberline {6}Testing and Reliability}{18}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Comprehensive Testing Suite}{18}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Thermal Unit Tests}{18}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Interface Tests}{18}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Backward Compatibility and Regression Suite}{18}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Test Results Summary}{19}{subsection.6.5}%
+\contentsline {section}{\numberline {7}Conclusion}{19}{section.7}%
+\contentsline {section}{\numberline {8}AI Use Acknowledgement}{19}{section.8}%
+\contentsline {section}{\numberline {A}Code References}{20}{appendix.A}%
+\contentsline {section}{\numberline {B}Notation and Conventions}{20}{appendix.B}%

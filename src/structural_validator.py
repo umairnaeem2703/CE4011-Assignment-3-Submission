@@ -4,50 +4,35 @@ from banded_solver import UnstableStructureError
 from parser import StructuralModel
 
 class StructuralValidator:
-    """
-    Per-solve topology checks.
-
-    This module identifies structural configurations that are fundamentally 
-    unsolvable due to lack of boundary conditions or disconnected floating parts.
-    """
+    """Validates structural topology before solving (boundary conditions, connectivity)."""
 
     def __init__(self, model: StructuralModel):
         self.model = model
 
     def validate(self):
-        """
-        Run global topology checks. Raises UnstableStructureError if a 
-        fatal condition is found. Prints warnings for non-fatal issues.
-        """
-        # ── Fatal Check 1: Zero Supports ────────────────────────────────
-        # No supports at all guarantees rigid body motion.
+        """Checks for fatal structural issues: missing supports, unrestrained translations, floating parts."""
+        # Check for zero supports
         if not self.model.supports:
             raise UnstableStructureError(
-                "No boundary conditions defined. "
-                "The structure is entirely unsupported — "
-                "rigid body modes exist. Global stiffness matrix K will be singular."
+                "No boundary conditions defined. Structure is entirely unsupported."
             )
 
         fatal_errors = []
 
-        # ── Fatal Check 2: Global X-Restraint ───────────────────────────
-        # Most 2D structures require at least one ux restraint to prevent sway.
+        # Check for global x-restraint
         if not any(s.restrain_ux for s in self.model.supports.values()):
             fatal_errors.append(
                 "No support restrains global x-translation. "
-                "The structure can sway freely in the x-direction. "
                 "Ensure at least one node is pinned or fixed."
             )
 
-        # ── Connectivity Analysis ───────────────────────────────────────
-        # Build adjacency list to find isolated sub-structures.
+        # Build adjacency graph and find connected components
         adj = {}
         for el in self.model.elements.values():
             ni, nj = el.node_i.id, el.node_j.id
             adj.setdefault(ni, set()).add(nj)
             adj.setdefault(nj, set()).add(ni)
 
-        # BFS to find connected components
         unvisited = set(adj)
         components = []
         while unvisited:
@@ -62,8 +47,7 @@ class StructuralValidator:
             unvisited -= component
             components.append(frozenset(component))
 
-        # ── Fatal Check 3: Floating Sub-structures ─────────────────────
-        # Every connected part of the model must have at least one support.
+        # Check for floating sub-structures
         for component in components:
             has_support = any(n in self.model.supports for n in component)
             if not has_support:
@@ -72,17 +56,11 @@ class StructuralValidator:
                     if el.node_i.id in component or el.node_j.id in component
                 )
                 fatal_errors.append(
-                    f"Member(s) [{', '.join(floating_members)}] form a floating "
-                    "sub-structure with no supports. Their DOFs will cause singular rows in K."
+                    f"Floating elements [{', '.join(floating_members)}] have no supports."
                 )
 
-        # ── Result Handling ─────────────────────────────────────────────
         if fatal_errors:
-            raise UnstableStructureError(
-                "\n".join(f"  ↳ {e}" for e in fatal_errors)
-            )
+            raise UnstableStructureError("\n".join(f"  ↳ {e}" for e in fatal_errors))
 
-        # ── Non-Fatal: Disconnected but supported ──────────────────────
         if len(components) > 1:
-            print(f"INFO: {len(components)} disconnected sub-structures detected. "
-                  "All parts are independently supported and solvable.")
+            print(f"INFO: {len(components)} disconnected sub-structures detected (all supported).")

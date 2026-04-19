@@ -89,16 +89,12 @@ class PointLoad(MemberLoad):
         fef = [[0.0] for _ in range(6)]
         a = self.position
         b = L - a
-        # CRITICAL FIX: Use magnitude of load in FEF formulas (textbook convention)
-        # The sign indicates load direction; formulas compute reaction magnitudes
         P = abs(self.fy)
         fx_load = self.fx
-
-        # Axial FEF: preserve sign for compression/tension
+        # Axial FEF (sign preserved for compression/tension)
         fef[0][0] = fx_load * b / L
         fef[3][0] = fx_load * a / L
-
-        # Transverse FEF: use magnitude, formulas give correct reaction magnitude
+        # Transverse FEF (magnitude used per textbook convention)
         if fef_condition == "fixed-fixed":
             fef[1][0] = P * (b**2) * (3*a + b) / (L**3)
             fef[2][0] = P * a * (b**2) / (L**2)
@@ -128,20 +124,15 @@ class PointLoad(MemberLoad):
 class UniformlyDL(MemberLoad):
     wx: float = 0.0
     wy: float = 0.0
-    is_local: bool = False
 
     def FEF(self, fef_condition: str, L: float) -> list:
         fef = [[0.0] for _ in range(6)]
-        # CRITICAL FIX: Use magnitude of distributed load in FEF formulas
-        # Sign indicates direction; formulas compute reaction magnitudes
         w = abs(self.wy)
-        wx = self.wx  # Preserve sign for axial consistency
-
-        # Axial FEF
+        wx = self.wx
+        # Axial FEF (sign preserved for consistency)
         fef[0][0] = wx * L / 2.0
         fef[3][0] = wx * L / 2.0
-
-        # Transverse FEF: use magnitude, formulas give correct reaction magnitude
+        # Transverse FEF (magnitude used per textbook convention)
         if fef_condition == "fixed-fixed":
             fef[1][0] = w * L / 2.0
             fef[2][0] = w * (L**2) / 12.0
@@ -171,21 +162,7 @@ class TemperatureL(MemberLoad):
     Tb: float = 0.0  # Temperature at bottom surface
 
     def FEF(self, fef_condition: str, L: float) -> list:
-        """
-        Calculates Fixed-End Forces for thermal loading per professor's formulation.
-        
-        Decomposition (from whiteboard):
-        - delta_T = T_b - T_u (total top-to-bottom difference)
-        - T_uniform = T_u + (delta_T / 2.0) = (T_u + T_b) / 2.0
-        - T_grad = delta_T / 2.0 (gradient component)
-        
-        Magnitudes:
-        - Axial: F_T = alpha * T_uniform * E * A
-        - Moment: M_T = (alpha * delta_T / d) * E * I  (NO 2 in numerator)
-        
-        FEF Vector (fixed-fixed): [-F_T, 0, -M_T, F_T, 0, M_T]^T
-        Adjusted for release conditions as needed.
-        """
+        """Computes thermal FEF: F_T = alpha * T_uniform * E * A, M_T = (alpha * delta_T / d) * E * I"""
         fef = [[0.0] for _ in range(6)]
         
         E = self.element.material.E
@@ -194,25 +171,22 @@ class TemperatureL(MemberLoad):
         I = self.element.section.I
         d = self.element.section.d
         
-        # STEP 1: Decompose thermal profile (professor's explicit formulation)
-        delta_T = self.Tb - self.Tu  # Total difference: bottom minus top
-        T_uniform = self.Tu + (delta_T / 2.0)  # Uniform component
-        # T_grad = delta_T / 2.0  # Gradient component (for documentation)
+        delta_T = self.Tb - self.Tu
+        T_uniform = self.Tu + (delta_T / 2.0)
         
-        # STEP 2: Compute axial force magnitude (independent of end releases)
+        # Axial thermal force
         F_T = alpha * T_uniform * E * A
         fef[0][0] = -F_T
         fef[3][0] =  F_T
         
-        # Truss elements only have axial thermal effects
+        # Trusses have only axial thermal effects
         if self.element.type == 'truss':
             return fef
         
-        # STEP 3: Compute moment magnitude using professor's exact formula
-        # M_T = (alpha * delta_T / d) * E * I (sign inherits from delta_T)
+        # Moment magnitude for frame elements
         M_T = (alpha * delta_T / d) * E * I if d != 0 else 0.0
         
-        # STEP 4: Adjust FEF based on end releases
+        # Adjust FEF based on end releases
         if fef_condition == "fixed-fixed":
             # Base case: fully fixed at both ends
             fef[2][0] = -M_T
@@ -346,26 +320,6 @@ class XMLParser:
                 uy = bool(int(sup.attrib.get('uy', 0)))
                 rz = bool(int(sup.attrib.get('rz', 0)))
 
-    def _parse_boundaries(self):
-        for sup in self.root.find('boundary_conditions').findall('support'):
-            node = self.model.nodes[int(sup.attrib['node'])]
-            sup_type = sup.attrib.get('type')
-            
-            ux = uy = rz = False
-            
-            if sup_type == 'fixed':
-                ux = uy = rz = True
-            elif sup_type == 'pin':
-                ux = uy = True; rz = False
-            elif sup_type == 'roller_x':
-                ux = False; uy = True; rz = False
-            elif sup_type == 'roller_y':
-                ux = True; uy = False; rz = False
-            else:
-                ux = bool(int(sup.attrib.get('ux', 0)))
-                uy = bool(int(sup.attrib.get('uy', 0)))
-                rz = bool(int(sup.attrib.get('rz', 0)))
-
             # Extract settlement values (default to 0.0 if not provided)
             settlement_ux = float(sup.attrib.get('settlement_ux', 0.0))
             settlement_uy = float(sup.attrib.get('settlement_uy', 0.0))
@@ -395,7 +349,7 @@ class XMLParser:
                 element = self.model.elements[udl.attrib['element']]
                 wx = float(udl.attrib.get('wx', 0.0))
                 wy = float(udl.attrib.get('wy', 0.0))
-                lc.loads.append(UniformlyDL(element, wx, wy, False))
+                lc.loads.append(UniformlyDL(element, wx, wy))
 
             # SCHEMA: member_point_load -> PointLoad
             for mpl in lc_node.findall('member_point_load'):
@@ -435,7 +389,6 @@ class XMLParser:
                 element = self.model.elements[udl.attrib['element']]
                 wx = float(udl.attrib.get('wx', 0.0))
                 wy = float(udl.attrib.get('wy', 0.0))
-                is_local = udl.attrib.get('local', 'false').lower() == 'true'
-                lc.loads.append(UniformlyDL(element, wx, wy, is_local))
+                lc.loads.append(UniformlyDL(element, wx, wy))
                 
             self.model.load_cases[lc_id] = lc

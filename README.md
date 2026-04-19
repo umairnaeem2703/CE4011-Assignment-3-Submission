@@ -1,100 +1,171 @@
 # Structural Analysis Solver (Python)
 
-A matrix-based 2D structural analysis project for **truss**, **frame**, and **beam** models defined in XML.  
-The solver parses input data, optimizes DOF numbering for bandwidth reduction, assembles a banded global system, solves it, and writes engineering result reports.
+A matrix-based 2D structural analysis solver for **truss**, **frame**, and **beam** models defined in XML.  
+The program parses XML input files, optimizes node numbering for bandwidth reduction, assembles a banded system matrix, solves the linear system, and generates engineering reports with displacement and force results.
 
 ---
 
-## Overview
+## Quick Start
 
-The main workflow is implemented in [`run_analysis`](src/main.py) inside [src/main.py](src/main.py).  
-At a high level, each run performs:
+### Prerequisites
+- Python 3.10 or later
+- Virtual environment (recommended)
 
-1. XML parsing  
-2. DOF optimization / equation numbering  
-3. Banded stiffness matrix assembly  
-4. Linear solve  
-5. Post-processing and report generation
+### Setup & Execution
+
+1. **Activate your Python virtual environment:**
+   ```bash
+   .venv\Scripts\activate
+   ```
+
+2. **Run the analysis:**
+   ```bash
+   python src/main.py
+   ```
+
+   This will analyze the default test file: `./data/Assignment_4_Q2b.xml`
+
+3. **Check the results:**
+   ```bash
+   View the generated report in: ./results/
+   ```
 
 ---
 
-## Key Features
+## Analysis Workflow
 
-- XML-driven model definition (nodes, elements, supports, load cases)
-- Supports multiple structural problem types in one workspace
-  - Truss-style models
-  - Frame-style models
-  - Beam-style models
-- Per-load-case result output with:
-  - Nodal displacements (`UX`, `UY`, `RZ`)
+The solver executes the following steps for each load case:
+
+1. **Parse XML** – Load structural model definition (nodes, elements, constraints, loads)
+2. **Optimize DOF Numbering** – Reorder equations to minimize bandwidth
+3. **Assemble System Matrix** – Build banded global stiffness matrix and load vector
+4. **Solve Linear System** – Compute nodal displacements using banded solver
+5. **Post-Process** – Calculate member forces and support reactions
+6. **Generate Report** – Write results to output file
+
+---
+
+## Program Features
+
+- **XML-Based Input** – Define models with nodes, elements, supports, and load cases
+- **Multiple Problem Types** – Supports trusses, frames, and beams in one workspace
+- **Comprehensive Output** – Per load case reports including:
+  - Nodal displacements (UX, UY, RZ)
   - Member local end forces (Axial, Shear, Moment)
-  - Support reactions (`Fx`, `Fy`, `Mz`)
-- Batch-ready architecture via reusable analysis function: [`run_analysis`](src/main.py)
+  - Support reactions (Fx, Fy, Mz)
+- **Reusable API** – Call [`run_analysis()`](src/main.py) function for batch processing
 
 ---
 
-## Repository Layout
+## Project Structure
 
-- Solver entry point: [src/main.py](src/main.py)
-- Core solver package: [src/](src/)
-- Input datasets: [data/](data/)
-- Generated reports: [results/](results/)
-- Tests: [tests/](tests/)
+```
+src/
+├── main.py                    # Entry point & run_analysis() function
+├── parser.py                  # XML model parsing
+├── dof_optimizer.py          # DOF numbering optimization
+├── matrix_assembly.py        # Stiffness matrix assembly
+├── banded_solver.py          # Linear system solver
+├── post_processor.py         # Results calculation & reporting
+├── element_physics.py        # Element stiffness calculations
+├── structural_validator.py   # Model validation
+├── math_utils.py             # Linear algebra utilities
+└── matrix_assembly.py        # Banded matrix assembly
+
+data/                          # Input XML files
+├── Assignment_4_Q2a.xml
+├── Assignment_4_Q2b.xml
+└── SCHEMA.xml               # XML schema documentation
+
+results/                       # Generated output reports
+tests/                        # Unit and integration tests
+```
 
 ---
 
-## How to Run
+## Usage Examples
 
-From workspace root:
-
+### Run Default Analysis
 ```bash
 python src/main.py
 ```
 
-By default, [`main`](src/main.py) runs `./data/example1_case1_truss.xml` if it exists.
+### Analyze Specific XML File (Programmatically)
+```python
+from src.main import run_analysis
 
-To analyze a different XML model programmatically, call [`run_analysis`](src/main.py) from [src/main.py](src/main.py).
+run_analysis("./data/Assignment_4_Q2a.xml", output_dir="./results")
+```
 
----
-
-## Inputs
-
-Example input files are available in [data/](data/), including:
-
-- [data/example1_case1_truss.xml](data/example1_case1_truss.xml)
-- [data/example2_frame.xml](data/example2_frame.xml)
-- [data/example3_frame_truss.xml](data/example3_frame_truss.xml)
-- [data/Q3a.xml](data/Q3a.xml)
-- [data/Q3b.xml](data/Q3b.xml)
-- [data/Q3c.xml](data/Q3c.xml)
-- [data/Q3d.xml](data/Q3d.xml)
+### Run Tests
+```bash
+python -m pytest tests/
+```
 
 ---
 
-## Outputs
+## Input Files
 
-Analysis reports are written to [results/](results/) using the naming pattern:
+XML model files are located in [data/](data/). Each file defines:
+- **Nodes** – Coordinates and boundary conditions (supports)
+- **Elements** – Connectivity and material properties
+- **Load Cases** – Nodal loads and distributed loads
+- **Material** – Element stiffness properties
 
-`{ModelName}_{LoadCase}_results.txt`
+Example input files:
+- `Assignment_4_Q2a.xml` – Truss analysis
+- `Assignment_4_Q2b.xml` – Frame analysis
 
-Examples:
+---
 
-- [results/Example1_Case1_Truss_LC1_results.txt](results/Example1_Case1_Truss_LC1_results.txt)
-- [results/Q3c_L_Frame_Cantilever_LC1_results.txt](results/Q3c_L_Frame_Cantilever_LC1_results.txt)
-- [results/Q3d_A_Frame_Pinned_LC1_results.txt](results/Q3d_A_Frame_Pinned_LC1_results.txt)
-- [results/Q3e_Beam_All_Pins_LC1_results.txt](results/Q3e_Beam_All_Pins_LC1_results.txt)
+## Output Reports
+
+Analysis results are written to [results/](results/) in the format:
+
+```
+{ModelName}_{LoadCase}_results.txt
+```
 
 Each report contains:
+1. Model summary (nodes, elements, equations)
+2. Nodal displacements table
+3. Member local end forces table
+4. Support reactions table
 
-1. **Nodal Displacements**
-2. **Member Local End Forces**
-3. **Support Reactions**
+Example output:
+- `Assignment_4_Q2a_LC1_results.txt`
+- `Assignment_4_Q2b_LC1_results.txt`
 
 ---
 
-## Assignment Utilities
+## Core Functions
 
-These are useful for generating or validating input structures separate from the main solver flow in [src/main.py](src/main.py).
+**[src/main.py](src/main.py) – `run_analysis(xml_filepath, output_dir)`**
+- Executes a complete structural analysis
+- Parameters:
+  - `xml_filepath` (str) – Path to input XML file
+  - `output_dir` (str) – Directory for output reports (default: `./results`)
+- Returns: None (writes results to file)
+
+---
+
+## Error Handling
+
+The program includes validation for:
+- **Parse Errors** – Invalid XML or missing required fields
+- **Unstable Structures** – Models with insufficient boundary conditions
+- **Solver Failures** – Singular or ill-conditioned matrices
+
+Error messages are printed to console with debugging context.
+
+---
+
+## Notes
+
+- All output reports use SI units (meters, Newtons, Pascal)
+- Bandwidth optimization reduces computation time for large models
+- The solver uses direct banded Gaussian elimination
+- Supports load case superposition for combined load analysis
 
 ---
 

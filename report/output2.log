@@ -1,0 +1,359 @@
+pdflatex: security risk: running with elevated privileges
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex.fmt)
+ restricted \write18 enabled.
+entering extended mode
+(assignment_report.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-01-19>
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/base\article.c
+ls
+Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.cl
+o))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geome
+try.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyva
+l.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex
+.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.
+sty))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geome
+try.cfg))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graph
+icx.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graph
+ics.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.
+sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\g
+raphics.cfg)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\p
+dftex.def)))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmat
+h.sty
+For additional information on amsmath, use the `?' option.
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstex
+t.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen
+.sty))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy
+.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn
+.sty))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssy
+mb.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfo
+nts.sty))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/listings\listi
+ngs.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpa
+tch.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmi
+sc.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/listings\listi
+ngs.cfg))
+==> First Aid for listings.sty no longer applied!
+    Expected:
+        2024/09/23 1.10c (Carsten Heinz)
+    but found:
+        2025/11/14 1.11b (Carsten Heinz)
+    so I'm assuming it got fixed.
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.
+sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\c
+olor.cfg)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathc
+olor.ltx))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyper
+ref.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvse
+tkeys.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys
+\kvdefinekeys.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pd
+fescape.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxc
+mds.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\p
+dftexcmds.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\in
+fwarerr.sty)))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolo
+r.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\namer
+ef.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refco
+unt.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestri
+ng\gettitlestring.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvop
+tions.sty)))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etool
+box.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\st
+ringenc.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1en
+c.def)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intc
+alc.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc
+.def)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitse
+t.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\b
+igintcalc.sty)))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdft
+ex.def
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck
+\rerunfilecheck.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounte
+r\uniquecounter.sty)))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\bookt
+abs.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.st
+y)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multi
+row.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/float\float.st
+y)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancy
+hdr.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setsp
+ace.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/tocloft\toclof
+t.sty)
+Runaway argument?
+{ language=Python, basicstyle=\ttfamily \small , keywordstyle=\color \ETC.
+! Paragraph ended before \lstset@ was complete.
+<to be read again> 
+                   \par 
+l.49 
+     
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3ba
+ckend-pdftex.def) (assignment_report.aux)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\su
+pp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+)
+
+! LaTeX Error: Loading a class or package in a group.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.72 \begin{document}
+                     
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\e
+pstopdf-base.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epsto
+pdf-sys.cfg))
+
+! LaTeX Error: Loading a class or package in a group.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.72 \begin{document}
+                     
+(assignment_report.out) (assignment_report.out) [1{C:/Users/MOHAMMAD UMAIR/AppD
+ata/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] (assignment_report.toc
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.
+fd)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.
+fd)
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.47 ... Test Conclusion}{17}{subsubsection.5.3.8}
+                                                  % [1]) [2] [3]
+Overfull \hbox (7.76907pt too wide) in paragraph at lines 165--166
+[]\OT1/cmr/bx/n/12 Load El-e-ment: \OT1/cmr/m/n/12 Poly-mor-phi-cally in-stan-t
+i-ates the ap-pro-pri-ate load class (\OT1/cmtt/m/n/12 NodalLoad\OT1/cmr/m/n/12
+ ,
+[4] [5
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.217 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.217 
+       <./domain_model.png (PNG copy)> <./analysis_logic.png (PNG copy)>]
+[6
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.226 
+       <./system_architecture.png (PNG copy)>] [7
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.235 
+       <./activity_diagram.png (PNG copy)>] [8
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.270     \item $
+                 \alpha$ = coefficient of linear thermal expansion <./sequence_
+diagram.png (PNG copy)>]
+Overfull \hbox (9.12962pt too wide) in paragraph at lines 292--293
+\OT1/cmr/m/n/12 Listing [][]1[][] demon-strates the ex-act de-com-po-si-tion an
+d FEF com-pu-ta-tion in the \OT1/cmtt/m/n/12 TemperatureL
+[9] [10]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.387 ...ement_stitch, basicstyle=\ttfamily\small]
+                                                  
+! Missing $ inserted.
+<inserted text> 
+                $
+l.387 ...ement_stitch, basicstyle=\ttfamily\small]
+                                                  
+[11] [12] [13
+pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.549 \end{table}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.549 \end{table}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.549 \end{table}
+                  <./q2a_structure.png>] [14
+pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.577 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.577 
+      ] [15
+pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.597 
+       <./q2a_solver_results.png>] [16
+pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.664 \end{table}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.664 \end{table}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{table.5}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.664 \end{table}
+                  <./q2b_structure.png>] [17
+pdfTeX warning (ext4): destination with the same identifier (name{table.6}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.692 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.692 
+      ] [18
+pdfTeX warning (ext4): destination with the same identifier (name{figure.11}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.712 \subsection
+                 {Thermal Unit Tests}
+pdfTeX warning (ext4): destination with the same identifier (name{figure.12}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.712 \subsection
+                 {Thermal Unit Tests} <./q2b_solver_results.png> <./regression_
+pass.png>] [19] [20
+pdfTeX warning (ext4): destination with the same identifier (name{table.7}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.790 
+      ] [21
+pdfTeX warning (ext4): destination with the same identifier (name{table.8}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.845 \end{document}
+                    
+pdfTeX warning (ext4): destination with the same identifier (name{table.9}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.845 \end{document}
+                    ] (assignment_report.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ )
+(\end occurred inside a group at level 1)
+
+### semi simple group (level 1) entered at line 28 (\begingroup)
+### bottom level
+(see the transcript file for additional information) <C:\Users\MOHAMMAD UMAIR\A
+ppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcbx1200.pk> <C:\Users\M
+OHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.
+pk><C:/Users/MOHAMMAD UMAIR/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmbx12.pfb><C:/Users/MOHAMMAD UMAIR/AppData/Local/Programs/MiKTeX/fon
+ts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/MOHAMMAD UMAIR/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/MOHAMMAD UMA
+IR/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/U
+sers/MOHAMMAD UMAIR/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
+m/cmr12.pfb><C:/Users/MOHAMMAD UMAIR/AppData/Local/Programs/MiKTeX/fonts/type1/
+public/amsfonts/cm/cmr8.pfb><C:/Users/MOHAMMAD UMAIR/AppData/Local/Programs/MiK
+TeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/MOHAMMAD UMAIR/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/MOHAMM
+AD UMAIR/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pf
+b><C:/Users/MOHAMMAD UMAIR/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmtt10.pfb><C:/Users/MOHAMMAD UMAIR/AppData/Local/Programs/MiKTeX/font
+s/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/MOHAMMAD UMAIR/AppData/Local/Pr
+ograms/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on assignment_report.pdf (22 pages, 963809 bytes).
+Transcript written on assignment_report.log.

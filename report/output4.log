@@ -1,0 +1,1543 @@
+pdflatex: security risk: running with elevated privileges
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex.fmt)
+ restricted \write18 enabled.
+entering extended mode
+(assignment_report.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-01-19>
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/base\article.c
+ls
+Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.cl
+o))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.s
+ty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.
+sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geome
+try.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyva
+l.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex
+.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.
+sty))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geome
+try.cfg))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graph
+icx.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graph
+ics.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.
+sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\g
+raphics.cfg)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\p
+dftex.def)))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmat
+h.sty
+For additional information on amsmath, use the `?' option.
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstex
+t.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen
+.sty))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy
+.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn
+.sty))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssy
+mb.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfo
+nts.sty))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/listings\listi
+ngs.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpa
+tch.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmi
+sc.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/listings\listi
+ngs.cfg))
+==> First Aid for listings.sty no longer applied!
+    Expected:
+        2024/09/23 1.10c (Carsten Heinz)
+    but found:
+        2025/11/14 1.11b (Carsten Heinz)
+    so I'm assuming it got fixed.
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.
+sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\c
+olor.cfg)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathc
+olor.ltx))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyper
+ref.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvse
+tkeys.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys
+\kvdefinekeys.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pd
+fescape.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxc
+mds.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\p
+dftexcmds.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\in
+fwarerr.sty)))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolo
+r.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\namer
+ef.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refco
+unt.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestri
+ng\gettitlestring.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvop
+tions.sty)))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etool
+box.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\st
+ringenc.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1en
+c.def)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intc
+alc.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc
+.def)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitse
+t.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\b
+igintcalc.sty)))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdft
+ex.def
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck
+\rerunfilecheck.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounte
+r\uniquecounter.sty)))
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\bookt
+abs.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.st
+y)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multi
+row.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/float\float.st
+y)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancy
+hdr.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setsp
+ace.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/tocloft\toclof
+t.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstla
+ng1.sty)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3ba
+ckend-pdftex.def) (assignment_report.aux)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\su
+pp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\e
+pstopdf-base.sty
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epsto
+pdf-sys.cfg)) (assignment_report.out) (assignment_report.out) [1{C:/Users/MOHAM
+MAD UMAIR/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+(assignment_report.toc
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.
+fd)
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.
+fd)
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.47 ... Test Conclusion}{18}{subsubsection.5.3.8}
+                                                  % [1]) [2] [3]
+Overfull \hbox (1.41959pt too wide) in paragraph at lines 165--166
+[]\T1/cmr/bx/n/12 Support El-e-ment: \T1/cmr/m/n/12 En-cap-su-lates both re-str
+aint flags (\T1/cmtt/m/n/12 restrain_ux\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 restrai
+n_uy\T1/cmr/m/n/12 ,
+
+Overfull \hbox (7.6666pt too wide) in paragraph at lines 166--167
+[]\T1/cmr/bx/n/12 Load El-e-ment: \T1/cmr/m/n/12 Poly-mor-phi-cally in-stan-ti-
+ates the ap-pro-pri-ate load class (\T1/cmtt/m/n/12 NodalLoad\T1/cmr/m/n/12 ,
+[4] [5
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.218 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.218 
+       <./domain_model.png (PNG copy)> <./analysis_logic.png (PNG copy)>]
+[6
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.227 
+       <./system_architecture.png (PNG copy)>] [7
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.236 
+       <./activity_diagram.png (PNG copy)>] [8
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.271     \item $
+                 \alpha$ = coefficient of linear thermal expansion <./sequence_
+diagram.png (PNG copy)>]
+Overfull \hbox (9.02077pt too wide) in paragraph at lines 293--294
+\T1/cmr/m/n/12 Listing [][]1[][] demon-strates the ex-act de-com-po-si-tion and
+ FEF com-pu-ta-tion in the \T1/cmtt/m/n/12 TemperatureL
+[9] [10]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.418 \end{lstlisting}
+                      
+! Missing $ inserted.
+<inserted text> 
+                $
+l.418 \end{lstlisting}
+                      
+[11] [12] [13
+pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.550 \end{table}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.550 \end{table}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.550 \end{table}
+                  <./q2a_structure.png>] [14
+pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.578 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.578 
+      ] [15
+pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.598 
+       <./q2a_solver_results.png>] [16
+pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.665 \end{table}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.665 \end{table}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{table.5}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.665 \end{table}
+                  <./q2b_structure.png>] [17
+pdfTeX warning (ext4): destination with the same identifier (name{table.6}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.693 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.693 
+      ] [18
+pdfTeX warning (ext4): destination with the same identifier (name{figure.11}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.713 \subsection
+                 {Thermal Unit Tests}
+pdfTeX warning (ext4): destination with the same identifier (name{figure.12}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.713 \subsection
+                 {Thermal Unit Tests} <./q2b_solver_results.png> <./regression_
+pass.png>] [19] [20
+pdfTeX warning (ext4): destination with the same identifier (name{table.7}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.791 
+      ] [21
+pdfTeX warning (ext4): destination with the same identifier (name{table.8}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.846 \end{document}
+                    
+pdfTeX warning (ext4): destination with the same identifier (name{table.9}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.846 \end{document}
+                    ] (assignment_report.aux) )
+(see the transcript file for additional information) <C:\Users\MOHAMMAD UMAIR\A
+ppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcbx1200.pk> <C:\Users\M
+OHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1200.
+pk> <C:\Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
+pi600\tctt1095.pk> <C:\Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfou
+r/jknappen/ec/dpi600\ectt1095.pk> <C:\Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX
+miktex-makepk: security risk: running with elevated privileges
+\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0600.pk>Trying to make PK font ecrm0800 at 600 DPI...
+miktex-mf: security risk: running with elevated privileges
+The METAFONT mode is: ljfour
+Creating ecrm0800.pk...
+Running miktex-mf.exe...
+
+This is METAFONT, Version 2.71828182 (MiKTeX 26.2)
+
+
+
+
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\ecrm0800.mf
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exbase.mf)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\ecrm.mf
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exroman.mf
+
+ Ok
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exaccess.mf
+
+ Ok)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\expseudo.mf
+
+ Ok)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exruwest.mf
+
+ Ok [192] [193] [194] [195] [196] [197] [198] [199] [200] [201] [202] [203]
+
+[204] [205] [206] [207] [208] [209] [210] [211] [212] [213] [214] [215]
+
+[216] [217] [218] [219] [220] [221] [222] [223])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrlwest.mf
+
+ Ok [224] [225] [226] [227] [228] [229] [230] [231] [232] [233] [234] [235]
+
+[236] [237] [238] [239] [240] [241] [242] [243] [244] [245] [246] [247]
+
+[248] [249] [250] [251] [252] [253] [254] [255])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrueast.mf
+
+ Ok [128] [129] [130] [131] [132] [133] [134] [135] [136] [137] [138] [139]
+
+[140] [141] [142] [143] [144] [145] [146] [147] [148] [149] [150] [151]
+
+[152] [153] [154] [155] [156] [157])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrleast.mf
+
+ Ok [158] [160] [161] [162] [163] [164] [165] [166] [167] [168] [169] [170]
+
+[171] [172] [173] [174] [175] [176] [177] [178] [179] [180] [181] [182]
+
+[183] [184] [185] [186] [187] [188])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exbraces.mf
+
+ Ok [94] [126] [23] [40] [41] [60] [124] [62] [91] [93] [92] [123] [125]
+
+[95] [127] [32])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\expunct.mf
+
+ Ok [14] [15] [19] [20] [13] [18] [33] [39] [42] [43] [44] [46] [47] [58]
+
+[59] [61] [96] [189] [17] [45] [16] [21] [22])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exaccent.mf
+
+ Ok [0] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exsign.mf
+
+ Ok [24] [34] [35] [36] [37] [64] [191] [159])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrlig.mf
+
+ Ok [25] [26] [28] [27] [29] [30] [31])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exromp.mf
+
+ Ok [38] [63] [190])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrulett.mf
+
+ Ok [65] [66] [67] [68] [69] [70] [71] [72] [73] [74] [75] [76] [77] [78]
+
+[79] [80] [81] [82] [83] [84] [85] [86] [87] [88] [89] [90])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrllett.mf
+
+ Ok [97] [98] [99] [100] [101] [102] [103] [104] [105] [106] [107] [108]
+
+[109] [110] [111] [112] [113] [114] [115] [116] [117] [118] [119] [120]
+
+[121] [122])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrdigit.mf
+
+ Ok [48] [49] [50] [51] [52] [53] [54] [55] [56] [57])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrligtb.mf
+
+ Ok) ) ) )
+
+(some charht values had to be adjusted by as much as 0.06445pt)
+
+Font metrics written on ecrm0800.tfm.
+
+Output written on ecrm0800.600gf (256 characters, 41732 bytes).
+
+Transcript written on ecrm0800.log.
+
+Running miktex-gftopk.exe...
+miktex-gftopk: security risk: running with elevated privileges
+
+This is GFtoPK, Version 2.4 (MiKTeX 26.2)
+
+'METAFONT output 2026.04.20:0111'
+
+41732 bytes packed to 19080 bytes.
+
+Installing "C:\Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0800.pk"...
+ <C:\Users\MOHAMMAD UMAIR\AppDa
+ta\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0800.pk> <C:\Users\MOHAM
+miktex-makepk: security risk: running with elevated privileges
+MAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk>Trying to make PK font ectt1200 at 600 DPI...
+miktex-mf: security risk: running with elevated privileges
+The METAFONT mode is: ljfour
+Creating ectt1200.pk...
+Running miktex-mf.exe...
+
+This is METAFONT, Version 2.71828182 (MiKTeX 26.2)
+
+
+
+
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\ectt1200.mf
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exbase.mf)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\ectt.mf
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exroman.mf
+
+ Ok
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exaccess.mf
+
+ Ok)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\expseudo.mf
+
+ Ok)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exruwest.mf
+
+ Ok [192] [193] [194] [195] [196] [197] [198] [199] [200] [201] [202] [203]
+
+[204] [205] [206] [207] [208] [209] [210] [211] [212] [213] [214] [215]
+
+[216] [217] [218] [219] [220] [221] [222] [223])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrlwest.mf
+
+ Ok [224] [225] [226] [227] [228] [229] [230] [231] [232] [233] [234] [235]
+
+[236] [237] [238] [239] [240] [241] [242] [243] [244] [245] [246] [247]
+
+[248] [249] [250] [251] [252] [253] [254] [255])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrueast.mf
+
+ Ok [128] [129] [130] [131] [132] [133] [134] [135] [136] [137] [138] [139]
+
+[140] [141] [142] [143] [144] [145] [146] [147] [148] [149] [150] [151]
+
+[152] [153] [154] [155] [156] [157])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrleast.mf
+
+ Ok [158] [160] [161] [162] [163] [164] [165] [166] [167] [168] [169] [170]
+
+[171] [172] [173] [174] [175] [176] [177] [178] [179] [180] [181] [182]
+
+[183] [184] [185] [186] [187] [188])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exbraces.mf
+
+ Ok [94] [126] [23] [40] [41] [60] [124] [62] [91] [93] [92] [123] [125]
+
+[95] [127] [32])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\expunct.mf
+
+ Ok [14] [15] [19] [20] [13] [18] [33] [39] [42] [43] [44] [46] [47] [58]
+
+[59] [61] [96] [189] [17] [45] [16] [21] [22])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exaccent.mf
+
+ Ok [0] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exsign.mf
+
+ Ok [24] [34] [35] [36] [37] [64] [191] [159])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrlig.mf
+
+ Ok [25] [26] [28] [27] [29] [30] [31])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exromp.mf
+
+ Ok [38] [63] [190])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrulett.mf
+
+ Ok [65] [66] [67] [68] [69] [70] [71] [72] [73] [74] [75] [76] [77] [78]
+
+[79] [80] [81] [82] [83] [84] [85] [86] [87] [88] [89] [90])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrllett.mf
+
+ Ok [97] [98] [99] [100] [101] [102] [103] [104] [105] [106] [107] [108]
+
+[109] [110] [111] [112] [113] [114] [115] [116] [117] [118] [119] [120]
+
+[121] [122])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrdigit.mf
+
+ Ok [48] [49] [50] [51] [52] [53] [54] [55] [56] [57])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exmligtb.mf
+
+ Ok) ) ) )
+
+Font metrics written on ectt1200.tfm.
+
+Output written on ectt1200.600gf (256 characters, 51736 bytes).
+
+Transcript written on ectt1200.log.
+
+Running miktex-gftopk.exe...
+miktex-gftopk: security risk: running with elevated privileges
+
+This is GFtoPK, Version 2.4 (MiKTeX 26.2)
+
+'METAFONT output 2026.04.20:0111'
+
+51736 bytes packed to 24152 bytes.
+
+Installing "C:\Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1200.pk"...
+ 
+<C:\Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
+0\ectt1200.pk> <C:\Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jk
+miktex-makepk: security risk: running with elevated privileges
+miktex-mf: security risk: running with elevated privileges
+
+nappen/ec/dpi600\ecrm1200.pk>Trying to make PK font ecbx1200 at 600 DPI...
+The METAFONT mode is: ljfour
+Creating ecbx1200.pk...
+Running miktex-mf.exe...
+This is METAFONT, Version 2.71828182 (MiKTeX 26.2)
+
+
+
+
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\ecbx1200.mf
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exbase.mf)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\ecbx.mf
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exroman.mf
+
+ Ok
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exaccess.mf
+
+ Ok)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\expseudo.mf
+
+ Ok)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exruwest.mf
+
+ Ok [192] [193] [194] [195] [196] [197] [198] [199] [200] [201] [202] [203]
+
+[204] [205] [206] [207] [208] [209] [210] [211] [212] [213] [214] [215]
+
+[216] [217] [218] [219] [220] [221] [222] [223])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrlwest.mf
+
+ Ok [224] [225] [226] [227] [228] [229] [230] [231] [232] [233] [234] [235]
+
+[236] [237] [238] [239] [240] [241] [242] [243] [244] [245] [246] [247]
+
+[248] [249] [250] [251] [252] [253] [254] [255])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrueast.mf
+
+ Ok [128] [129] [130] [131] [132] [133] [134] [135] [136] [137] [138] [139]
+
+[140] [141] [142] [143] [144] [145] [146] [147] [148] [149] [150] [151]
+
+[152] [153] [154] [155] [156] [157])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrleast.mf
+
+ Ok [158] [160] [161] [162] [163] [164] [165] [166] [167] [168] [169] [170]
+
+[171] [172] [173] [174] [175] [176] [177] [178] [179] [180] [181] [182]
+
+[183] [184] [185] [186] [187] [188])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exbraces.mf
+
+ Ok [94] [126] [23] [40] [41] [60] [124] [62] [91] [93] [92] [123] [125]
+
+[95] [127] [32])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\expunct.mf
+
+ Ok [14] [15] [19] [20] [13] [18] [33] [39] [42] [43] [44] [46] [47] [58]
+
+[59] [61] [96] [189] [17] [45] [16] [21] [22])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exaccent.mf
+
+ Ok [0] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exsign.mf
+
+ Ok [24] [34] [35] [36] [37] [64] [191] [159])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrlig.mf
+
+ Ok [25] [26] [28] [27] [29] [30] [31])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exromp.mf
+
+ Ok [38] [63] [190])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrulett.mf
+
+ Ok [65] [66] [67] [68] [69] [70] [71] [72] [73] [74] [75] [76] [77] [78]
+
+[79] [80] [81] [82] [83] [84] [85] [86] [87] [88] [89] [90])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrllett.mf
+
+ Ok [97] [98] [99] [100] [101] [102] [103] [104] [105] [106] [107] [108]
+
+[109] [110] [111] [112] [113] [114] [115] [116] [117] [118] [119] [120]
+
+[121] [122])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrdigit.mf
+
+ Ok [48] [49] [50] [51] [52] [53] [54] [55] [56] [57])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrligtb.mf
+
+ Ok) ) ) )
+
+Font metrics written on ecbx1200.tfm.
+
+Output written on ecbx1200.600gf (256 characters, 59220 bytes).
+
+Transcript written on ecbx1200.log.
+
+Running miktex-gftopk.exe...
+miktex-gftopk: security risk: running with elevated privileges
+
+This is GFtoPK, Version 2.4 (MiKTeX 26.2)
+
+'METAFONT output 2026.04.20:0111'
+
+59220 bytes packed to 31952 bytes.
+
+Installing "C:\Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk"...
+ <C:\Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX\fon
+miktex-makepk: security risk: running with elevated privileges
+ts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk>Trying to make PK font ecti1440 at 600 DPI...
+The METAFONT mode is: ljfour
+Creating ecti1440.pk...
+Running miktex-mf.exe...
+miktex-mf: security risk: running with elevated privileges
+
+This is METAFONT, Version 2.71828182 (MiKTeX 26.2)
+
+
+
+
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\ecti1440.mf
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exbase.mf)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\ecti.mf
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\extextit.mf
+
+ Ok
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exaccess.mf
+
+ Ok)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\expseudo.mf
+
+ Ok)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exileast.mf
+
+ Ok [158] [160] [161] [162] [163] [164] [165] [166] [167] [168] [169] [170]
+
+[171] [172] [173] [174] [175] [176] [177] [178] [179] [180] [181] [182]
+
+[183] [184] [185] [186] [187] [188])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exilwest.mf
+
+ Ok [224] [225] [226] [227] [228] [229] [230] [231] [232] [233] [234] [235]
+
+[236] [237] [238] [239] [240] [241] [242] [243] [244] [245] [246] [247]
+
+[248] [249] [250] [251] [252] [253] [254] [255])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exruwest.mf
+
+ Ok [192] [193] [194] [195] [196] [197] [198] [199] [200] [201] [202] [203]
+
+[204] [205] [206] [207] [208] [209] [210] [211] [212] [213] [214] [215]
+
+[216] [217] [218] [219] [220] [221] [222] [223])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrueast.mf
+
+ Ok [128] [129] [130] [131] [132] [133] [134] [135] [136] [137] [138] [139]
+
+[140] [141] [142] [143] [144] [145] [146] [147] [148] [149] [150] [151]
+
+[152] [153] [154] [155] [156] [157])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exbraces.mf
+
+ Ok [94] [126] [23] [40] [41] [60] [124] [62] [91] [93] [92] [123] [125]
+
+[95] [127] [32])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\expunct.mf
+
+ Ok [14] [15] [19] [20] [13] [18] [33] [39] [42] [43] [44] [46] [47] [58]
+
+[59] [61] [96] [189] [17] [45] [16] [21] [22])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exaccent.mf
+
+ Ok [0] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exsign.mf
+
+ Ok [24] [34] [35] [36] [37] [64] [191] [159])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exilig.mf
+
+ Ok [25] [26] [27] [28] [29] [30] [31])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exitalp.mf
+
+ Ok [38] [63] [190])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrulett.mf
+
+ Ok [65] [66] [67] [68] [69] [70] [71] [72] [73] [74] [75] [76] [77] [78]
+
+[79] [80] [81] [82] [83] [84] [85] [86] [87] [88] [89] [90])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exillett.mf
+
+ Ok [97] [98] [99] [100] [101] [102] [103] [104] [105] [106] [107] [108]
+
+[109] [110] [111] [112] [113] [114] [115] [116] [117] [118] [119] [120]
+
+[121] [122])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exidigit.mf
+
+ Ok [48] [49] [50] [51] [52] [53] [54] [55] [56] [57])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exiligtb.mf
+
+ Ok) ) ) )
+
+(some charht values had to be adjusted by as much as 0.07997pt)
+
+Font metrics written on ecti1440.tfm.
+
+Output written on ecti1440.600gf (256 characters, 74296 bytes).
+
+Transcript written on ecti1440.log.
+
+miktex-gftopk: security risk: running with elevated privileges
+Running miktex-gftopk.exe...
+
+This is GFtoPK, Version 2.4 (MiKTeX 26.2)
+
+'METAFONT output 2026.04.20:0111'
+
+74296 bytes packed to 47464 bytes.
+
+Installing "C:\Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1440.pk"...
+ <C:\Users\MOHAMMAD UMAIR\AppData\L
+miktex-makepk: security risk: running with elevated privileges
+ocal\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1440.pk>Trying to make PK font ecbx1440 at 600 DPI...
+The METAFONT mode is: ljfour
+Creating ecbx1440.pk...
+Running miktex-mf.exe...
+miktex-mf: security risk: running with elevated privileges
+
+This is METAFONT, Version 2.71828182 (MiKTeX 26.2)
+
+
+
+
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\ecbx1440.mf
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exbase.mf)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\ecbx.mf
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exroman.mf
+
+ Ok
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exaccess.mf
+
+ Ok)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\expseudo.mf
+
+ Ok)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exruwest.mf
+
+ Ok [192] [193] [194] [195] [196] [197] [198] [199] [200] [201] [202] [203]
+
+[204] [205] [206] [207] [208] [209] [210] [211] [212] [213] [214] [215]
+
+[216] [217] [218] [219] [220] [221] [222] [223])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrlwest.mf
+
+ Ok [224] [225] [226] [227] [228] [229] [230] [231] [232] [233] [234] [235]
+
+[236] [237] [238] [239] [240] [241] [242] [243] [244] [245] [246] [247]
+
+[248] [249] [250] [251] [252] [253] [254] [255])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrueast.mf
+
+ Ok [128] [129] [130] [131] [132] [133] [134] [135] [136] [137] [138] [139]
+
+[140] [141] [142] [143] [144] [145] [146] [147] [148] [149] [150] [151]
+
+[152] [153] [154] [155] [156] [157])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrleast.mf
+
+ Ok [158] [160] [161] [162] [163] [164] [165] [166] [167] [168] [169] [170]
+
+[171] [172] [173] [174] [175] [176] [177] [178] [179] [180] [181] [182]
+
+[183] [184] [185] [186] [187] [188])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exbraces.mf
+
+ Ok [94] [126] [23] [40] [41] [60] [124] [62] [91] [93] [92] [123] [125]
+
+[95] [127] [32])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\expunct.mf
+
+ Ok [14] [15] [19] [20] [13] [18] [33] [39] [42] [43] [44] [46] [47] [58]
+
+[59] [61] [96] [189] [17] [45] [16] [21] [22])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exaccent.mf
+
+ Ok [0] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exsign.mf
+
+ Ok [24] [34] [35] [36] [37] [64] [191] [159])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrlig.mf
+
+ Ok [25] [26] [28] [27] [29] [30] [31])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exromp.mf
+
+ Ok [38] [63] [190])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrulett.mf
+
+ Ok [65] [66] [67] [68] [69] [70] [71] [72] [73] [74] [75] [76] [77] [78]
+
+[79] [80] [81] [82] [83] [84] [85] [86] [87] [88] [89] [90])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrllett.mf
+
+ Ok [97] [98] [99] [100] [101] [102] [103] [104] [105] [106] [107] [108]
+
+[109] [110] [111] [112] [113] [114] [115] [116] [117] [118] [119] [120]
+
+[121] [122])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrdigit.mf
+
+ Ok [48] [49] [50] [51] [52] [53] [54] [55] [56] [57])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrligtb.mf
+
+ Ok) ) ) )
+
+(some charht values had to be adjusted by as much as 0.10997pt)
+
+Font metrics written on ecbx1440.tfm.
+
+Output written on ecbx1440.600gf (256 characters, 70764 bytes).
+
+Transcript written on ecbx1440.log.
+
+Running miktex-gftopk.exe...
+miktex-gftopk: security risk: running with elevated privileges
+
+This is GFtoPK, Version 2.4 (MiKTeX 26.2)
+
+'METAFONT output 2026.04.20:0111'
+
+70764 bytes packed to 40136 bytes.
+
+Installing "C:\Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk"...
+ <C:\Users\MOHAMMAD 
+miktex-makepk: security risk: running with elevated privileges
+UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk>Trying to make PK font ecrm1440 at 600 DPI...
+The METAFONT mode is: ljfour
+The PK font file "C:\Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk" already exists.
+ <C:\
+Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ec
+miktex-makepk: security risk: running with elevated privileges
+rm1440.pk>Trying to make PK font ecbx2488 at 600 DPI...
+miktex-mf: security risk: running with elevated privileges
+The METAFONT mode is: ljfour
+Creating ecbx2488.pk...
+Running miktex-mf.exe...
+
+This is METAFONT, Version 2.71828182 (MiKTeX 26.2)
+
+
+
+
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\ecbx2488.mf
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exbase.mf)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\ecbx.mf
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exroman.mf
+
+ Ok
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exaccess.mf
+
+ Ok)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\expseudo.mf
+
+ Ok)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exruwest.mf
+
+ Ok [192] [193] [194] [195] [196] [197] [198] [199] [200] [201] [202] [203]
+
+[204] [205] [206] [207] [208] [209] [210] [211] [212] [213] [214] [215]
+
+[216] [217] [218] [219] [220] [221] [222] [223])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrlwest.mf
+
+ Ok [224] [225] [226] [227] [228] [229] [230] [231] [232] [233] [234] [235]
+
+[236] [237] [238] [239] [240] [241] [242] [243] [244] [245] [246] [247]
+
+[248] [249] [250] [251] [252] [253] [254] [255])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrueast.mf
+
+ Ok [128] [129] [130] [131] [132] [133] [134] [135] [136] [137] [138] [139]
+
+[140] [141] [142] [143] [144] [145] [146] [147] [148] [149] [150] [151]
+
+[152] [153] [154] [155] [156] [157])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrleast.mf
+
+ Ok [158] [160] [161] [162] [163] [164] [165] [166] [167] [168] [169] [170]
+
+[171] [172] [173] [174] [175] [176] [177] [178] [179] [180] [181] [182]
+
+[183] [184] [185] [186] [187] [188])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exbraces.mf
+
+ Ok [94] [126] [23] [40] [41] [60] [124] [62] [91] [93] [92] [123] [125]
+
+[95] [127] [32])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\expunct.mf
+
+ Ok [14] [15] [19] [20] [13] [18] [33] [39] [42] [43] [44] [46] [47] [58]
+
+[59] [61] [96] [189] [17] [45] [16] [21] [22])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exaccent.mf
+
+ Ok [0] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exsign.mf
+
+ Ok [24] [34] [35] [36] [37] [64] [191] [159])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrlig.mf
+
+ Ok [25] [26] [28] [27] [29] [30] [31])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exromp.mf
+
+ Ok [38] [63] [190])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrulett.mf
+
+ Ok [65] [66] [67] [68] [69] [70] [71] [72] [73] [74] [75] [76] [77] [78]
+
+[79] [80] [81] [82] [83] [84] [85] [86] [87] [88] [89] [90])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrllett.mf
+
+ Ok [97] [98] [99] [100] [101] [102] [103] [104] [105] [106] [107] [108]
+
+[109] [110] [111] [112] [113] [114] [115] [116] [117] [118] [119] [120]
+
+[121] [122])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrdigit.mf
+
+ Ok [48] [49] [50] [51] [52] [53] [54] [55] [56] [57])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrligtb.mf
+
+ Ok) ) ) )
+
+(some charht values had to be adjusted by as much as 0.13768pt)
+
+Font metrics written on ecbx2488.tfm.
+
+Output written on ecbx2488.600gf (256 characters, 124660 bytes).
+
+Transcript written on ecbx2488.log.
+
+Running miktex-gftopk.exe...
+miktex-gftopk: security risk: running with elevated privileges
+
+This is GFtoPK, Version 2.4 (MiKTeX 26.2)
+
+'METAFONT output 2026.04.20:0111'
+
+124660 bytes packed to 72288 bytes.
+
+Installing "C:\Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk"...
+ <C:\Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknapp
+miktex-makepk: security risk: running with elevated privileges
+miktex-mf: security risk: running with elevated privileges
+en/ec/dpi600\ecbx2488.pk>Trying to make PK font ecbx1728 at 600 DPI...
+
+The METAFONT mode is: ljfour
+Creating ecbx1728.pk...
+Running miktex-mf.exe...
+This is METAFONT, Version 2.71828182 (MiKTeX 26.2)
+
+
+
+
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\ecbx1728.mf
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exbase.mf)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\ecbx.mf
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exroman.mf
+
+ Ok
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exaccess.mf
+
+ Ok)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\expseudo.mf
+
+ Ok)
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exruwest.mf
+
+ Ok [192] [193] [194] [195] [196] [197] [198] [199] [200] [201] [202] [203]
+
+[204] [205] [206] [207] [208] [209] [210] [211] [212] [213] [214] [215]
+
+[216] [217] [218] [219] [220] [221] [222] [223])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrlwest.mf
+
+ Ok [224] [225] [226] [227] [228] [229] [230] [231] [232] [233] [234] [235]
+
+[236] [237] [238] [239] [240] [241] [242] [243] [244] [245] [246] [247]
+
+[248] [249] [250] [251] [252] [253] [254] [255])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrueast.mf
+
+ Ok [128] [129] [130] [131] [132] [133] [134] [135] [136] [137] [138] [139]
+
+[140] [141] [142] [143] [144] [145] [146] [147] [148] [149] [150] [151]
+
+[152] [153] [154] [155] [156] [157])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrleast.mf
+
+ Ok [158] [160] [161] [162] [163] [164] [165] [166] [167] [168] [169] [170]
+
+[171] [172] [173] [174] [175] [176] [177] [178] [179] [180] [181] [182]
+
+[183] [184] [185] [186] [187] [188])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exbraces.mf
+
+ Ok [94] [126] [23] [40] [41] [60] [124] [62] [91] [93] [92] [123] [125]
+
+[95] [127] [32])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\expunct.mf
+
+ Ok [14] [15] [19] [20] [13] [18] [33] [39] [42] [43] [44] [46] [47] [58]
+
+[59] [61] [96] [189] [17] [45] [16] [21] [22])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exaccent.mf
+
+ Ok [0] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exsign.mf
+
+ Ok [24] [34] [35] [36] [37] [64] [191] [159])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrlig.mf
+
+ Ok [25] [26] [28] [27] [29] [30] [31])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exromp.mf
+
+ Ok [38] [63] [190])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrulett.mf
+
+ Ok [65] [66] [67] [68] [69] [70] [71] [72] [73] [74] [75] [76] [77] [78]
+
+[79] [80] [81] [82] [83] [84] [85] [86] [87] [88] [89] [90])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrllett.mf
+
+ Ok [97] [98] [99] [100] [101] [102] [103] [104] [105] [106] [107] [108]
+
+[109] [110] [111] [112] [113] [114] [115] [116] [117] [118] [119] [120]
+
+[121] [122])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrdigit.mf
+
+ Ok [48] [49] [50] [51] [52] [53] [54] [55] [56] [57])
+
+(C:\Users\MOHAMMAD UMAIR\AppData\Local\Programs\MiKTeX\fonts/source/jknappen/ec
+
+\exrligtb.mf
+
+ Ok) ) ) )
+
+(some charht values had to be adjusted by as much as 0.13197pt)
+
+Font metrics written on ecbx1728.tfm.
+
+Output written on ecbx1728.600gf (256 characters, 84848 bytes).
+
+Transcript written on ecbx1728.log.
+
+miktex-gftopk: security risk: running with elevated privileges
+Running miktex-gftopk.exe...
+
+This is GFtoPK, Version 2.4 (MiKTeX 26.2)
+
+'METAFONT output 2026.04.20:0111'
+
+84848 bytes packed to 49100 bytes.
+
+Installing "C:\Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk"...
+ <C:\Users\MOHAMMAD UMAIR\AppData\Local\MiKTeX\fonts/p
+k/ljfour/jknappen/ec/dpi600\ecbx1728.pk><C:/Users/MOHAMMAD UMAIR/AppData/Local/
+Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/MOHAMMAD UM
+AIR/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:
+/Users/MOHAMMAD UMAIR/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
+/cm/cmmi12.pfb><C:/Users/MOHAMMAD UMAIR/AppData/Local/Programs/MiKTeX/fonts/typ
+e1/public/amsfonts/cm/cmmi8.pfb><C:/Users/MOHAMMAD UMAIR/AppData/Local/Programs
+/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/MOHAMMAD UMAIR/AppDa
+ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/MOHA
+MMAD UMAIR/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.
+pfb><C:/Users/MOHAMMAD UMAIR/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
+msfonts/cm/cmsy8.pfb><C:/Users/MOHAMMAD UMAIR/AppData/Local/Programs/MiKTeX/fon
+ts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on assignment_report.pdf (22 pages, 1059079 bytes).
+Transcript written on assignment_report.log.

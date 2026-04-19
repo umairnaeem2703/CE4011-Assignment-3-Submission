@@ -1,0 +1,110 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{2}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Revisions to the Core Architecture}{2}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Motivation: Static XML to Dynamic Class Structure}{2}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}The FEF Decoupling Strategy}{2}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Problem with Static Attributes}{2}{subsubsection.2.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Solution: Specialized \texttt  {TemperatureL} Class}{2}{subsubsection.2.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Enhanced XML Parser with Expressive Tags}{3}{subsection.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Domain Model Class Hierarchy}{3}{subsection.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Object-Oriented Design}{3}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Class Diagram: Domain Model}{4}{subsection.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Domain Model UML Class Diagram. Shows the structural hierarchy: Material, Section, Node, Element form the geometric basis. Support and Load subclasses define boundary conditions and applied forces. LoadCase and StructuralModel provide container semantics.}}{4}{figure.1}\protected@file@percent }
+\newlabel{fig:domain_model}{{1}{4}{Domain Model UML Class Diagram. Shows the structural hierarchy: Material, Section, Node, Element form the geometric basis. Support and Load subclasses define boundary conditions and applied forces. LoadCase and StructuralModel provide container semantics}{figure.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Class Diagram: Analysis Logic}{4}{subsection.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Analysis Logic UML Diagram. Depicts the solver pipeline: XMLParser constructs the StructuralModel, GlobalAssembler builds the global stiffness matrix (K) and load vector (F), Solver solves $\mathbf  {K} \mathbf  {D} = \mathbf  {F}$, and PostProcessor extracts and formats results.}}{4}{figure.2}\protected@file@percent }
+\newlabel{fig:analysis_logic}{{2}{4}{Analysis Logic UML Diagram. Depicts the solver pipeline: XMLParser constructs the StructuralModel, GlobalAssembler builds the global stiffness matrix (K) and load vector (F), Solver solves $\mathbf {K} \mathbf {D} = \mathbf {F}$, and PostProcessor extracts and formats results}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Class Diagram: System Architecture}{5}{subsection.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces System Architecture Diagram. Illustrates the full software stack with module dependencies: parser.py defines data models, element\_physics.py computes local stiffness and FEF, matrix\_assembly.py assembles global matrices, banded\_solver.py solves the linear system, and post\_processor.py extracts results.}}{5}{figure.3}\protected@file@percent }
+\newlabel{fig:system_architecture}{{3}{5}{System Architecture Diagram. Illustrates the full software stack with module dependencies: parser.py defines data models, element\_physics.py computes local stiffness and FEF, matrix\_assembly.py assembles global matrices, banded\_solver.py solves the linear system, and post\_processor.py extracts results}{figure.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Activity Diagram: Solver Workflow}{6}{subsection.3.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Activity Diagram showing the high-level control flow: Parse XML $\rightarrow $ Assemble global matrices $\rightarrow $ Apply boundary conditions $\rightarrow $ Solve linear system $\rightarrow $ Post-process and output results.}}{6}{figure.4}\protected@file@percent }
+\newlabel{fig:activity_diagram}{{4}{6}{Activity Diagram showing the high-level control flow: Parse XML $\rightarrow $ Assemble global matrices $\rightarrow $ Apply boundary conditions $\rightarrow $ Solve linear system $\rightarrow $ Post-process and output results}{figure.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Sequence Diagram: Interaction Protocol}{7}{subsection.3.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Sequence Diagram depicting the message passing sequence during thermal load analysis. The Client instructs the Solver to process a model; internally, the Solver coordinates parsing, assembly, solving, and post-processing in the correct sequence.}}{7}{figure.5}\protected@file@percent }
+\newlabel{fig:sequence_diagram}{{5}{7}{Sequence Diagram depicting the message passing sequence during thermal load analysis. The Client instructs the Solver to process a model; internally, the Solver coordinates parsing, assembly, solving, and post-processing in the correct sequence}{figure.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Q1 --- Feature Implementation}{7}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Temperature Loading (Part a)}{7}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Linear Thermal Profile Decomposition}{7}{subsubsection.4.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}Fixed-End Force Formulation}{7}{subsubsection.4.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Axial Thermal Force}{7}{section*.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Thermal Moment (Frame Elements Only)}{8}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Implementation in \texttt  {TemperatureL} Class}{8}{subsubsection.4.1.3}\protected@file@percent }
+\newlabel{lst:temperature_fef}{{1}{8}{Thermal Load FEF Decomposition (parser.py)}{lstlisting.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}Thermal Load FEF Decomposition (parser.py)}{8}{lstlisting.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.4}Physical Interpretation}{9}{subsubsection.4.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Support Settlements (Part b)}{9}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Matrix Partitioning Strategy}{9}{subsubsection.4.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Settlement-Induced Element Forces}{10}{subsubsection.4.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.3}Post-Processing: Stitching Complete Displacements}{10}{subsubsection.4.2.3}\protected@file@percent }
+\newlabel{lst:settlement_stitch}{{2}{10}{Settlement Displacement Stitching (post_processor.py)}{lstlisting.2}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}Settlement Displacement Stitching (post_processor.py)}{10}{lstlisting.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.4}Extended Support Dataclass}{10}{subsubsection.4.2.4}\protected@file@percent }
+\newlabel{lst:support_dataclass}{{3}{11}{Extended Support Dataclass (parser.py)}{lstlisting.3}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}Extended Support Dataclass (parser.py)}{11}{lstlisting.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.5}Physical Interpretation}{11}{subsubsection.4.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Q2 --- Numerical Analysis and Validation}{11}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Validation Methodology}{11}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Part a: Settlement Analysis}{11}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Problem Statement}{11}{subsubsection.5.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Settlement Case (Q2a) structure built in SAP2000.}}{12}{figure.6}\protected@file@percent }
+\newlabel{fig:q2a_structure}{{6}{12}{Settlement Case (Q2a) structure built in SAP2000}{figure.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Solution: Nodal Displacements}{12}{subsubsection.5.2.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Nodal Displacements --- Settlement Case (Q2a)}}{12}{table.1}\protected@file@percent }
+\newlabel{tab:settlement_displacements}{{1}{12}{Nodal Displacements --- Settlement Case (Q2a)}{table.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.3}Solution: Support Reactions}{12}{subsubsection.5.2.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Support Reactions --- Settlement Case (Q2a)}}{12}{table.2}\protected@file@percent }
+\newlabel{tab:settlement_reactions}{{2}{12}{Support Reactions --- Settlement Case (Q2a)}{table.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.4}Solution: Member-End Forces}{13}{subsubsection.5.2.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Member-End Forces (Local Coordinates) --- Settlement Case (Q2a)}}{13}{table.3}\protected@file@percent }
+\newlabel{tab:settlement_member_forces}{{3}{13}{Member-End Forces (Local Coordinates) --- Settlement Case (Q2a)}{table.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.5}Validation Summary}{13}{subsubsection.5.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.6}SAP2000 Model --- Settlement Case (Q2a)}{13}{subsubsection.5.2.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces SAP2000 structural model for the Settlement Case (Q2a). Shows geometry, member connectivity, support conditions, applied loads, and prescribed settlement at Node 5.}}{13}{figure.7}\protected@file@percent }
+\newlabel{fig:q2a_sap2000_model}{{7}{13}{SAP2000 structural model for the Settlement Case (Q2a). Shows geometry, member connectivity, support conditions, applied loads, and prescribed settlement at Node 5}{figure.7}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.7}Solver Results --- Settlement Case (Q2a)}{14}{subsubsection.5.2.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Custom solver output for the Settlement Case (Q2a), showing nodal displacements, member local end forces, and support reactions matching the SAP2000 reference.}}{14}{figure.8}\protected@file@percent }
+\newlabel{fig:q2a_solver_results}{{8}{14}{Custom solver output for the Settlement Case (Q2a), showing nodal displacements, member local end forces, and support reactions matching the SAP2000 reference}{figure.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Part b: Thermal Loading Analysis}{14}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}Problem Statement}{14}{subsubsection.5.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Thermal Loading Case (Q2b) structure built in SAP2000.}}{15}{figure.9}\protected@file@percent }
+\newlabel{fig:q2b_structure}{{9}{15}{Thermal Loading Case (Q2b) structure built in SAP2000}{figure.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}Solution: Nodal Displacements}{15}{subsubsection.5.3.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Nodal Displacements --- Thermal Case (Q2b)}}{15}{table.4}\protected@file@percent }
+\newlabel{tab:thermal_displacements}{{4}{15}{Nodal Displacements --- Thermal Case (Q2b)}{table.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.3}Solution: Member-End Forces}{15}{subsubsection.5.3.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Member-End Forces (Local Coordinates) --- Thermal Case (Q2b)}}{15}{table.5}\protected@file@percent }
+\newlabel{tab:thermal_member_forces}{{5}{15}{Member-End Forces (Local Coordinates) --- Thermal Case (Q2b)}{table.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.4}Solution: Support Reactions}{16}{subsubsection.5.3.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Support Reactions --- Thermal Case (Q2b)}}{16}{table.6}\protected@file@percent }
+\newlabel{tab:thermal_reactions}{{6}{16}{Support Reactions --- Thermal Case (Q2b)}{table.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.5}Validation Summary}{16}{subsubsection.5.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.6}SAP2000 Model --- Thermal Case (Q2b)}{16}{subsubsection.5.3.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces SAP2000 structural model for the Thermal Loading Case (Q2b). Shows geometry, member connectivity, support conditions, and applied thermal loads.}}{16}{figure.10}\protected@file@percent }
+\newlabel{fig:q2b_sap2000_model}{{10}{16}{SAP2000 structural model for the Thermal Loading Case (Q2b). Shows geometry, member connectivity, support conditions, and applied thermal loads}{figure.10}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.7}Solver Results --- Thermal Case (Q2b)}{17}{subsubsection.5.3.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Custom solver output for the Thermal Loading Case (Q2b), showing nodal displacements, member local end forces, and support reactions matching the SAP2000 reference.}}{17}{figure.11}\protected@file@percent }
+\newlabel{fig:q2b_solver_results}{{11}{17}{Custom solver output for the Thermal Loading Case (Q2b), showing nodal displacements, member local end forces, and support reactions matching the SAP2000 reference}{figure.11}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.8}Regression Test Conclusion}{17}{subsubsection.5.3.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Regression test output confirming that the Thermal Loading Case (Q2b) and Settlement Case (Q2a) passes all automated validation checks against the SAP2000 reference solution.}}{17}{figure.12}\protected@file@percent }
+\newlabel{fig:regression_pass}{{12}{17}{Regression test output confirming that the Thermal Loading Case (Q2b) and Settlement Case (Q2a) passes all automated validation checks against the SAP2000 reference solution}{figure.12}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Testing and Reliability}{18}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Comprehensive Testing Suite}{18}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Thermal Unit Tests}{18}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Interface Tests}{18}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Backward Compatibility and Regression Suite}{18}{subsection.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Test Results Summary}{19}{subsection.6.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Testing Summary}}{19}{table.7}\protected@file@percent }
+\newlabel{tab:test_summary}{{7}{19}{Testing Summary}{table.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{19}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}AI Use Acknowledgement}{19}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A}Code References}{20}{appendix.A}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Source Code Modules}}{20}{table.8}\protected@file@percent }
+\newlabel{tab:code_modules}{{8}{20}{Source Code Modules}{table.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Notation and Conventions}{20}{appendix.B}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Mathematical Notation}}{20}{table.9}\protected@file@percent }
+\newlabel{tab:notation}{{9}{20}{Mathematical Notation}{table.9}{}}
+\gdef \@abspage@last{21}
